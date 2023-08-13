@@ -1,0 +1,209 @@
+<div class="banner-wrapper">
+    <div class="banner">
+        <h1 class="banner-title h1">Бурильні роботи під <span class="dynamic">Дорогою</span></h1>
+        <p class="banner-description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae.
+            Lorem ipsum dolor sit amet, consectetur elit.  
+        </p>
+
+        <div class="button">
+            <span class="button-order">Замовити</span>
+        </div>
+    </div>
+    <div class="banner-image">
+        <img src="assets/banner.png" />
+    </div>
+</div>
+
+<div class="our-serivces container" id="services">
+    <div class="headliner" >
+        <span class="subtitle">виконуємо швидко</span>
+        <p class="headline h1">
+            Наші Послуги
+        </p>
+    </div>
+    <div *ngFor="let card of cardService; let i = index" class="card-service">
+        <a [routerLink]="['/services', card.slug]" [ngClass]="{ 'active': currentIndex === i }" (click)="setActiveCard(i)">
+          <span class="service-number">{{ formatCardNumber(i + 1) }}</span>
+          <p class="card-headline">{{ card.headline }}</p>
+      
+          <div class="card-info">
+            <div class="card-image">
+              <img [src]="card.imageSrc" />
+              <div class="icon">
+                <img [src]="card.iconSrc" />
+              </div>
+            </div>
+            <div class="card-description">{{ card.description }}</div>
+            <p class="card-price">від <span class="price-number">{{ card.price }}</span> грн</p>
+          </div>
+        </a>
+      </div>
+      
+</div>
+
+<div class="cooperation container">
+    <div class="headliner">
+        <span class="subtitle">виконуємо швидко</span>
+        <p class="headline h1">Як ми працюємо</p>
+    </div>
+    <div *ngFor="let card of cardCooperation; let i = index" [class.active]="currentIndex === i" class="cooperation-card-wrapper">
+      <div class="cooperation-card">
+        <p class="cooperation-headline">
+            <span class="cooperation-number">{{ i + 1 | number: '2.0' }}</span>
+            {{ card.title }}
+        </p>
+        <div class="cooperation-description">{{ card.description }}</div>
+      </div>
+      <div class="tilted-border"></div>
+    </div>
+    
+    
+
+</div>
+
+<div class="our-project container">
+    <div class="headliner">
+      <span class="subtitle">ділимось результатами</span>
+      <p class="headline h1">Реалізовані проекти</p>
+    </div>
+
+    <div class="project-card">
+        <img class="project-image" src="assets/project-01.png">
+        <div class="project-info">
+            <p class="project-title">Вертикальне буріння для нафтової компанії</p>
+            <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+    </div>
+    <div class="project-card">
+        <img class="project-image" src="assets/project-02.png">
+        <div class="project-info">
+            <p class="project-title">Вертикальне буріння для нафтової компанії</p>
+            <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+    </div>
+    <div class="project-card">
+        <img class="project-image" src="assets/project-03.png">
+        <div class="project-info">
+            <p class="project-title">Вертикальне буріння для нафтової компанії</p>
+            <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+    </div>
+    <div class="project-card-big project-card">
+        <img class="project-image" src="assets/project-04.png">
+        <div class="project-info">
+            <p class="project-title">Вертикальне буріння для нафтової компанії</p>
+            <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+    </div>
+    <div class="project-card">
+        <img class="project-image" src="assets/project-05.png">
+        <div class="project-info">
+            <p class="project-title">Вертикальне буріння для нафтової компанії</p>
+            <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+    </div>
+
+</div>
+
+<div class="call-to-action container">
+    <div class="call-to-action-info">
+        <p class="title h1">Реалізуєм любу вашу забаганку!</p>
+        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
+    </div>
+    <div class="call-to-action-button">
+        
+        <p class="order">
+            <span>безкоштовна консультація</span><br>
+            Замовити
+        </p>
+    </div>
+</div>
+
+<div class="about-us container">
+    <div class="about-us-info">
+        <p class="title h1">Про нас</p>
+        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
+        <button class="order">Зв'язатись з нами</button>
+    </div>
+    <div class="about-us-image">
+        <img src="assets/about-us.png" alt="About us">
+    </div>
+</div>
+
+<div class="popular-question container">
+    <div class="headliner">
+        <span class="subtitle">у вас є питання?</span>
+        <p class="headline h1">
+            Популярні питання
+        </p>
+    </div>
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Питання яке часто задають або являється важливою частиною робочого питання
+            </mat-panel-title>
+            <!-- <mat-panel-description>
+              Currently I am {{panelOpenState ? 'open' : 'closed'}}
+            </mat-panel-description> -->
+          </mat-expansion-panel-header>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Питання яке часто задають або являється важливою частиною робочого питання
+            </mat-panel-title>
+            <!-- <mat-panel-description>
+              Currently I am {{panelOpenState ? 'open' : 'closed'}}
+            </mat-panel-description> -->
+          </mat-expansion-panel-header>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Питання яке часто задають або являється важливою частиною робочого питання
+            </mat-panel-title>
+            <!-- <mat-panel-description>
+              Currently I am {{panelOpenState ? 'open' : 'closed'}}
+            </mat-panel-description> -->
+          </mat-expansion-panel-header>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Питання яке часто задають або являється важливою частиною робочого питання
+            </mat-panel-title>
+            <!-- <mat-panel-description>
+              Currently I am {{panelOpenState ? 'open' : 'closed'}}
+            </mat-panel-description> -->
+          </mat-expansion-panel-header>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Питання яке часто задають або являється важливою частиною робочого питання
+            </mat-panel-title>
+            <!-- <mat-panel-description>
+              Currently I am {{panelOpenState ? 'open' : 'closed'}}
+            </mat-panel-description> -->
+          </mat-expansion-panel-header>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
+        </mat-expansion-panel>
+      </mat-accordion>
+      
+</div>

@@ -1,0 +1,47 @@
+.headliner{
+    grid-column: span 12;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 3em;
+    line-height: .9;
+    margin-bottom: 1.5rem;
+    .subtitle{
+        grid-column: span 12;
+        color: #BF2121;
+        font-size: .25em;
+        padding-left: 1em;
+        font-weight: bold;
+    }
+}
+
+.contacts{
+        .contact-item{
+            grid-column: span 4;
+            font-size: 1.35rem;
+            display: flex;
+            @media screen and (max-width: 768px) {
+                grid-column: span 12;
+            }
+            &.phone{
+                .phone-icon{
+                    width: 24px; /* Adjust the icon size as needed */
+                    height: 24px;
+                    background-image: url("../../assets/phone-icon.svg");
+                    // background-color: red;
+                    background-size: cover;
+                    margin-right: 10px;
+                }
+            }
+            &.email{
+                .mail-icon{
+                    width: 24px; /* Adjust the icon size as needed */
+                    height: 24px;
+                    background-image: url("../../assets/mail-icon.svg");
+                    // background-color: green;
+                    background-size: cover;
+                    margin-right: 10px;
+                }
+            }
+        }
+        
+}

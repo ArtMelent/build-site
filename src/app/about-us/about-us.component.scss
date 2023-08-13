@@ -1,0 +1,18 @@
+.headliner{
+    grid-column: span 12;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 3em;
+    line-height: .9;
+    margin-bottom: 1.5rem;
+    .subtitle{
+        grid-column: span 12;
+        color: #BF2121;
+        font-size: .25em;
+        padding-left: 1em;
+        font-weight: bold;
+    }
+}
+.about-us{
+    // min-height: 100vh;
+}
