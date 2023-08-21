@@ -53,12 +53,12 @@
             <p class="title h1">Реалізуєм любу вашу забаганку!</p>
             <p class="description">Вже зараз ви можете зателефонувати або написати з метою розрахувати приблизну вартість проколу під залізницею і отримати допомогу у вирішенні інших питань.</p>
         </div>
-        <div class="call-to-action-button">
-            
-            <p class="order">
-                <span>безкоштовна консультація</span><br>
-                Замовити
-            </p>
-        </div>
+        <a [routerLink]="['/contacts']" class="call-to-action-button">
+        
+        <p class="order">
+            <span>безкоштовна консультація</span><br>
+            <a class="button-order">Замовити</a>
+        </p>
+      </a>
     </div>
 </div>

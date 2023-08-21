@@ -8,7 +8,7 @@
         </p>
 
         <div class="button">
-            <span class="button-order">Замовити</span>
+            <a [routerLink]="['/contacts']" class="button-order">Замовити</a>
         </div>
     </div>
     <div class="banner-image">
@@ -112,20 +112,20 @@
         <p class="title h1">Реалізуєм любу вашу забаганку!</p>
         <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
     </div>
-    <div class="call-to-action-button">
+    <a [routerLink]="['/contacts']" class="call-to-action-button">
         
         <p class="order">
             <span>безкоштовна консультація</span><br>
-            Замовити
+            <a class="button-order">Замовити</a>
         </p>
-    </div>
+      </a>
 </div>
 
 <div class="about-us container">
     <div class="about-us-info">
         <p class="title h1">Про нас</p>
         <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
-        <button class="order">Зв'язатись з нами</button>
+        <div class="wrapper-button"><a [routerLink]="['/about-us']" class="order">Дізнатись більше</a></div>
     </div>
     <div class="about-us-image">
         <img src="assets/about-us.png" alt="About us">

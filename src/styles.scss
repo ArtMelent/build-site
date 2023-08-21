@@ -7,7 +7,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-family: 'Oswald';
   src: url('./font/Oswald-VariableFont_wght.ttf');
 }
-
+a{
+  text-decoration: none;
+  color: white;
+}
 .h1{
   font-family: 'Oswald';
 }
