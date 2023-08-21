@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit {
             this.renderer.setProperty(window, 'scrollBehavior', 'smooth');
             element.scrollIntoView({ behavior: 'smooth' });
           }
-        }, 0);
+        }, 10);
       });
     }
   }
