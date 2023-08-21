@@ -16,8 +16,8 @@ const routes: Routes = [
   { path: 'about-us', component: AboutUsComponent},
   { path: 'contacts', component: ContactsComponent},
 
-  { path: 'services/under-road', component: UnderRoadComponent},
-  { path: 'services/under-railway', component: UnderRailwayComponent},
+  { path: 'services/prokol-pid-dorohoiu', component: UnderRoadComponent},
+  { path: 'services/prokol-pid-zaliznytseiu', component: UnderRailwayComponent},
   { path: 'services/beztransheynoyu-rokladannya-vodoprovodu', component: LayingWaterComponent},
   { path: 'services/beztransheyne-prokladannya-trub-metodom-hnb', component: LayingGnbComponent},
   { path: 'services/beztransheyne-prokladannya-kanalizatsiyi', component: LayingSewerageComponent},

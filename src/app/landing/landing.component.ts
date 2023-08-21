@@ -17,7 +17,7 @@ export class LandingComponent {
 
   cardService = [
     {
-      slug: 'under-road',
+      slug: 'prokol-pid-dorohoiu',
       headline: 'Прокол під дорогою',
       imageSrc: 'assets/service-01.png',
       iconSrc: 'assets/service-icon.png',
@@ -25,7 +25,7 @@ export class LandingComponent {
       price: '20 000'
     },
     {
-      slug: 'under-railway',
+      slug: 'prokol-pid-zaliznytseiu',
       headline: 'Прокол під залізницею',
       imageSrc: 'assets/service-01.png',
       iconSrc: 'assets/service-icon.png',
