@@ -1,0 +1,46 @@
+<header class="header" [ngClass]="{ 'hidden': !isNavbarVisible }" [ngStyle]="{ '--header-height': headerHeight + 'px' }">
+  <!-- Contacts section -->
+  <div class="contacts">
+    <div class="contact-wrapper container">
+      <ul class="contact-list">
+        <li>(063) 058 49 55</li>
+        <li>(063) 058 49 55</li>
+        <li>burcompany@ukr.net</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Navbar section -->
+  <div class="container nav-bar" >
+    <!-- Logo -->
+    <div class="logo" routerLink="/"><img src="assets/logo.png" alt="Logo"></div>
+
+     <!-- Burger menu -->
+     <div class="burger-menu" (click)="toggleBurgerMenu()" [ngClass]="{ 'open': isOpened }">
+      <i class="material-icons">{{ isOpened ? "close" : "menu" }}</i>
+    </div>
+
+    <div class="menu" [ngClass]="{ 'open': isOpened }">
+     
+    <!-- Nav buttons -->
+        <div class="nav-buttons" >
+          <a class="nav-button p" routerLink="/">Головна</a>
+          <a class="nav-button p" (click)="scrollToSection('services')">Послуги</a>
+          <a class="nav-button p" routerLink="/about-us">Про нас</a>
+          <a class="nav-button p" routerLink="/contacts">Контакти</a>
+        </div>
+
+         <!-- Button -->
+      <div class="button">
+        <a [routerLink]="['/contacts']" class="button-order">Замовити</a>
+      </div>
+    </div>
+    <!-- <div class="overlay" *ngIf="isOpened"></div> -->
+      
+    
+
+    </div>
+   
+   
+
+</header>

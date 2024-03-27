@@ -1,0 +1,41 @@
+html, body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    max-width: fit-content;
+  }
+  
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    
+  }
+  
+  .content {
+    flex: 1;
+    margin-top: 8rem;
+    // min-height: 100vh;
+    @media screen and (max-width: 768px) {
+      overflow: hidden;
+      position: relative;
+    }
+  }
+  app-header{
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    .sticky{
+      background-color: aqua;
+    }
+    // padding-top: 5rem;
+  }
+  app-footer {
+    flex-shrink: 0;
+    // padding: 1rem; /* Add padding to the footer as needed */
+    margin-top: auto; /* Push the footer to the bottom of the container */
+    @media screen and (max-width: 768px) {
+      // margin-bottom: 11.9rem;
+      
+    }
+  }

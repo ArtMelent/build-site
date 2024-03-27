@@ -1,0 +1,443 @@
+
+  
+.banner{
+    text-align: center;
+    margin: 0 auto;
+    max-width: 50%;
+    margin-top: 3em;
+    .banner-title{
+        font-size: 5.625rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 1;
+        .dynamic{
+            color: #BF2121;
+        }
+    }
+    .banner-description{
+        max-width: 75%;
+        text-align: center;
+        margin: 2rem auto;
+    }
+    .button {
+        align-items: center;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        .button-order{
+        
+          background-color: #BF2121;
+          color: #f2f2f2;
+          font-weight: 500;
+          font-size: 1rem;
+          padding: .75em 2.375em;
+          cursor: pointer;
+        }
+      }
+}
+.banner-image{
+    width: 100%;
+    height: auto;
+    img{
+        max-width: 100%;
+    }
+}
+
+.our-serivces{
+    margin-top: 3rem;
+    .headliner{
+        grid-column: span 12;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 3em;
+        line-height: 1;
+        margin-bottom: 1.5rem;
+        .subtitle{
+            grid-column: span 12;
+            color: #BF2121;
+            font-size: .25em;
+            padding-left: 1em;
+            font-weight: bold;
+        }
+    }
+    
+
+    .card-service{
+        grid-column: span 5;
+        cursor: pointer;
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        img{
+            filter: sepia(100%);
+            transition: 0.25s ease-in-out;
+        }
+        &:hover{
+            img{
+                filter: sepia(0%);
+            }
+        }
+        .service-number{
+            color: #BF2121;
+            font-weight: bold;
+            font-size: 1rem;
+            line-height: 2;
+        }
+        .card-headline{
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+        .card-info{
+            .card-image{
+                display: inline-flex;
+                position: relative;
+                margin-bottom: 1rem;
+                img{
+                    display: block;
+                    max-width: 100%;
+                    height: 230px;
+                }
+                .icon{
+                    position: absolute;
+                    top: 0;
+                    right: 15%;
+                    transform: translate(50%, -50%);
+                    img{
+                        filter: sepia(0%);
+                        max-width: 42px;
+                        height: 42px;
+                    }
+                }
+            }
+            .card-description{
+                font-size: .8rem;
+            }
+            .card-price{
+            text-transform: uppercase;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 1rem;
+
+        }
+        .price-number{
+            color: #BF2121;
+        }
+        }
+    }
+}
+
+
+.cooperation{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    .headliner{
+        grid-column: span 12;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 3em;
+        line-height: 1;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        .subtitle{
+            grid-column: span 12;
+            color: #BF2121;
+            font-size: .25em;
+            padding-left: 1em;
+            font-weight: bold;
+        }
+    }
+    .cooperation-card-wrapper{
+        grid-column: span 6/10;
+    
+        .cooperation-card{
+            padding: 1rem 3rem 2rem 2rem;
+            box-sizing: border-box;
+            background-color: #f2f2f2;
+            
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            .cooperation-headline{
+                font-size: 1.25rem;
+                font-weight: 500;
+                font-family: 'Oswald';
+                .cooperation-number{
+                    color: #BF2121;
+                    font-weight: bold;
+                    font-size: 1.25rem;
+                    line-height: 2;
+                }
+            }
+        }
+    }
+}
+
+.our-project {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  
+    .headliner {
+      grid-column: span 12;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 3em;
+      line-height: 0.9;
+      margin-bottom: 1.5rem;
+  
+      .subtitle {
+        grid-column: span 12;
+        color: #bf2121;
+        font-size: 0.25em;
+        padding-left: 1em;
+        font-weight: bold;
+      }
+    }
+  
+    .project-card-big {
+      grid-column: span 8 !important;
+    }
+  
+    .project-card {
+      grid-column: span 4;
+    //   height: 364px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      &:hover .project-info{
+        height: 100%;
+        .project-description{
+            opacity: 1;
+            visibility: visible;
+        }
+      }
+      .project-image{
+        width: 100%;
+        height: 100%;
+      }
+      .project-info{
+        height: 75px;
+        width: 100%;
+        padding: 1em 1em;
+        box-sizing: border-box;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #f2f2f2;
+        bottom: 0;
+        overflow: hidden;
+        transition: .5s;
+        .project-title{
+            font-size: 1.25rem;
+            line-height: 1.25;
+            font-weight: bold;
+            text-transform: uppercase;
+            width: 100%;
+            // margin: 0;
+        }
+        .project-description{
+            visibility: hidden;
+            opacity: 0;
+        }
+      }
+    }
+}
+
+.call-to-action{
+    grid-column: span 12;
+    gap: 0;
+    color: #f2f2f2;
+    margin-top: 12rem;
+    margin-bottom: 12rem;
+    .call-to-action-info{
+        grid-column: span 6;
+        width: 100%;
+        background-color: #BF2121;
+        padding: 1.875em 1.5625em 3.125em 4.375em;
+        width: fit-content;
+        .title{
+            font-size: 2.65rem;
+            line-height: 1.2;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
+    .call-to-action-button{
+        display: flex;
+        grid-column: span 6;
+        width: 100%;
+        background-color: #9F1B1B;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
+        .order:after{
+            // background: url('../../assets/project-01.png');
+            // width: 30px;
+            // height: 30px;
+            // background-size: 30px;
+            content: "";
+            width: 40px;
+            height: 40px;
+            background: url("../../assets/order-arrow.svg") no-repeat;
+            rotate: -45deg;
+            font-weight: bold;
+            background-size: 40px;
+            right: -60px;
+            position: absolute;
+            display: inline-block;
+        }
+        .order{
+            font-size: 3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            line-height: 1;
+            position: relative;
+            overflow: hidden;
+            span{
+                text-transform: lowercase;
+                font-weight: 400;
+                font-size: .75rem;
+            }
+            
+        }
+        
+    }
+}
+  
+.about-us{
+    background-color: #f2f2f2;
+    grid-column: span 12;
+    gap: 0;
+    margin-top: 12em;
+    margin-bottom: 12em;
+    .about-us-info{
+        grid-column: span 6;
+        width: 100%;
+        padding: 3.125em 1.5em 1.5em 6.25em;
+        width: fit-content;
+        margin-bottom: 1em;
+        line-height: 1;
+        .title{
+            margin-bottom: .75em;
+            font-size: 3rem;
+            text-transform: none;
+        }
+        .description{
+            font-size: 1rem;
+            line-height: 1.25;
+            // color: #f2f2f2;
+        }
+        .wrapper-button{
+            margin-top: 2rem;
+            .order{
+                border: 0;
+                margin-top: 1em;
+                background-color: #BF2121;
+                color: #f2f2f2;
+                font-weight: 600;
+                font-size: 1rem;
+                padding: .75em 2.375em;
+                cursor: pointer;
+            }
+        }
+    }
+    .about-us-image{
+        grid-column: span 6;
+        width: 100%;
+        img{
+            max-width: 100%;
+            height: 100%;
+        }
+    }
+}
+  
+.popular-question{
+    margin-top: 12em;
+    margin-bottom: 12em;
+    .headliner{
+        grid-column: span 12;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 3em;
+        line-height: 1;
+        margin-bottom: 1.5rem;
+        .subtitle{
+            grid-column: span 12;
+            color: #BF2121;
+            font-size: .25em;
+            padding-left: 1em;
+            font-weight: bold;
+        }
+    }
+    .mat-expansion-panel:not([class*=mat-elevation-z]) {
+        box-shadow: none;
+        background-color: #f2f2f2;
+        margin-bottom: .7em;
+        padding: .25em;
+        border-radius: 0;
+        &:hover{
+            border-radius: 0;
+        }
+    }
+    mat-accordion{
+        grid-column: span 9;
+        box-shadow: none;
+        
+        mat-panel-title{
+            font-size: 1.25em;
+        }
+    }
+} 
+  
+.tilted-border {
+    width: 100%;
+    height: 20px;
+    background: repeating-linear-gradient(
+        -45deg,
+        #f2f2f2,
+        #f2f2f2 10px,
+        #bf2121 10px,
+        #bf2121 38px
+      );
+    // position: relative;
+    z-index: 0;
+  }
+
+  
+  
+
+  
+  
+.h1{
+    font-family: 'Oswald';
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+@media screen and (max-width: 768px) {
+.banner-wrapper{
+    .banner-image{
+        display: none;
+    }
+    .banner{
+        max-width: 100%;
+        .banner-title{
+            font-size: 3rem!important;
+        }
+    }
+}
+    .container{
+        display: block;
+    }
+    .project-card{
+        margin-bottom: 1rem;
+    }
+    .mat-expansion-panel-header {
+        height: fit-content;
+      }
+}
+.h2{
+    color: #ff0000;
+}
