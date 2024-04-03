@@ -13,7 +13,7 @@ import { TrenchDiggerComponent } from './our-services/trench-digger/trench-digge
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
-  // { path: 'about-us', component: AboutUsComponent},
+  { path: 'about-gnb', component: AboutUsComponent},
   { path: 'contacts', component: ContactsComponent},
 
   { path: 'services/prokol-pid-dorohoiu', component: UnderRoadComponent},
