@@ -19,7 +19,7 @@ export class LandingComponent {
     {
       slug: 'prokol-pid-dorohoiu',
       headline: 'Прокол під дорогою',
-      imageSrc: 'assets/service-01.png',
+      imageSrc: 'assets/service-under-road.png',
       iconSrc: 'assets/service-icon.png',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
       price: '900'
@@ -27,7 +27,7 @@ export class LandingComponent {
     {
       slug: 'prokol-pid-zaliznytseiu',
       headline: 'Прокол під залізницею',
-      imageSrc: 'assets/service-01.png',
+      imageSrc: 'assets/under-railway.jpg',
       iconSrc: 'assets/service-icon.png',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
       price: '900'
@@ -35,7 +35,7 @@ export class LandingComponent {
     {
       slug: 'beztransheynoyu-rokladannya-vodoprovodu',
       headline: 'Безтраншейною прокладання водопроводу',
-      imageSrc: 'assets/service-01.png',
+      imageSrc: 'assets/laying-water.jpg',
       iconSrc: 'assets/service-icon.png',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
       price: '900'
@@ -43,7 +43,7 @@ export class LandingComponent {
     {
       slug: 'beztransheyne-prokladannya-kanalizatsiyi',
       headline: 'Безтраншейне прокладання каналізації',
-      imageSrc: 'assets/service-01.png',
+      imageSrc: 'assets/laying-sewerage.jpg',
       iconSrc: 'assets/service-icon.png',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
       price: '900'
@@ -51,7 +51,7 @@ export class LandingComponent {
     {
       slug: 'spayka-trub',
       headline: 'Спайка труб',
-      imageSrc: 'assets/service-01.png',
+      imageSrc: 'assets/pipe-adhesion-2.jpg',
       iconSrc: 'assets/service-icon.png',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
       price: '900'
@@ -67,7 +67,7 @@ export class LandingComponent {
     {
       slug: 'znakhodzhennya-transheynykh-merezh',
       headline: 'Знаходження траншейних мереж',
-      imageSrc: 'assets/service-01.png',
+      imageSrc: 'assets/trench-digger.jpg',
       iconSrc: 'assets/service-icon.png',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
       price: '900'
