@@ -7,11 +7,13 @@ import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
 })
 export class LandingComponent {
   panelOpenState = false;
+
+
   cardCooperation = [
-    { title: 'Card 1', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-    { title: 'Card 2', description: 'Vestibulum dapibus aliquet libero, in malesuada felis tempus sed.' },
-    { title: 'Card 3', description: 'Fusce interdum nunc id metus rhoncus, id aliquet tellus consectetur.' },
-    { title: 'Card 4', description: 'Proin ac est lacinia, eleifend orci vitae, venenatis sapien.' },
+    { title: "Запит клієнта", description: "Запит клієнта повинен містити якомога більше інформації про проблему, яку вони хочуть вирішити. Це допоможе нам краще зрозуміти вашу потребу та надати вам найкраще можливе рішення." },
+    { title: "Виїзд спеціаліста на об'єкт", description: "Наш спеціаліст приїжджає на ваш об'єкт, щоб провести огляд та оцінити обсяг роботи. Спеціаліст ознайомиться з вашими потребами та обговорить з вами деталі проекту. Він також проведе необхідні заміри та збере інформацію про об'єкт." },
+    { title: "Узгодження об'єму роботи ", description: "На основі інформації, зібраної під час виїзду на об'єкт, наш спеціаліст складе план роботи та кошторис. План роботи буде включати опис всіх необхідних робіт, а також терміни їх виконання. Кошторис буде включати всі витрати, пов'язані з проектом, такі як вартість обладнання, матеріалів та послуг. Ми надамо вам план роботи та кошторис для вашого ознайомлення та затвердження." },
+    { title: "Підпснання договору", description: "Після того, як ви погодитеся з планом роботи та кошторисом, ми підпишемо з вами договір. Договір буде включати всі умови нашого співробітництва, такі як терміни виконання робіт, вартість проекту та порядок оплати. Після підписання договору ми розпочнемо роботу над вашим проектом." },
      // Add more card objects as needed
   ];
 
@@ -56,22 +58,22 @@ export class LandingComponent {
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
       price: '900'
     },
-    {
-      slug: 'posluhy-traysheynoho-kopacha',
-      headline: 'Послуги трайшейного копача',
-      imageSrc: 'assets/service-01.png',
-      iconSrc: 'assets/service-icon.png',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
-      price: '900'
-    },
-    {
-      slug: 'znakhodzhennya-transheynykh-merezh',
-      headline: 'Знаходження траншейних мереж',
-      imageSrc: 'assets/trench-digger.jpg',
-      iconSrc: 'assets/service-icon.png',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
-      price: '900'
-    },
+    // {
+    //   slug: 'posluhy-traysheynoho-kopacha',
+    //   headline: 'Послуги трайшейного копача',
+    //   imageSrc: 'assets/service-01.png',
+    //   iconSrc: 'assets/service-icon.png',
+    //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
+    //   price: '900'
+    // },
+    // {
+    //   slug: 'znakhodzhennya-transheynykh-merezh',
+    //   headline: 'Знаходження траншейних мереж',
+    //   imageSrc: 'assets/trench-digger.jpg',
+    //   iconSrc: 'assets/service-icon.png',
+    //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
+    //   price: '900'
+    // },
 
     // Add more card objects as needed
   ];

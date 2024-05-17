@@ -10,10 +10,11 @@ import { LayingGnbComponent } from './our-services/laying-gnb/laying-gnb.compone
 import { LayingSewerageComponent } from './our-services/laying-sewerage/laying-sewerage.component';
 import { PipeAdhesionComponent } from './our-services/pipe-adhesion/pipe-adhesion.component';
 import { TrenchDiggerComponent } from './our-services/trench-digger/trench-digger.component';
+import { FindingNetworksComponent } from './our-services/finding-networks/finding-networks.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
-  { path: 'about-gnb', component: AboutUsComponent},
+  // { path: 'about-gnb', component: AboutUsComponent},
   { path: 'contacts', component: ContactsComponent},
 
   { path: 'services/prokol-pid-dorohoiu', component: UnderRoadComponent},
@@ -22,8 +23,8 @@ const routes: Routes = [
   { path: 'services/beztransheyne-prokladannya-trub-metodom-hnb', component: LayingGnbComponent},
   { path: 'services/beztransheyne-prokladannya-kanalizatsiyi', component: LayingSewerageComponent},
   { path: 'services/spayka-trub', component: PipeAdhesionComponent},
-  { path: 'services/posluhy-traysheynoho-kopacha', component: TrenchDiggerComponent},
-  { path: 'services/znakhodzhennya-transheynykh-merezh', component: PipeAdhesionComponent},
+  // { path: 'services/posluhy-traysheynoho-kopacha', component: TrenchDiggerComponent},
+  // { path: 'services/znakhodzhennya-transheynykh-merezh', component: FindingNetworksComponent},
 
   { path: '**', redirectTo: '' },
 ];
