@@ -1,19 +1,5 @@
-$anime-time: 8s ;
-$box-size: 200px;
-$clip-distance: .05;
-$clip-size: $box-size * (1 + $clip-distance * 2);
-$path-width: 2px;
-
-
 :root {
   --header-height: 0px; /* Default value, will be overridden */
-}
-
-@keyframes clipMe {
-  0%, 100% {clip: rect(0px, $clip-size, $path-width, 0px); }
-  25% {clip: rect(0px, $path-width, $clip-size, 0px); }
-  50% {clip: rect($clip-size - $path-width, $clip-size, $clip-size, 0px); }
-  75% {clip: rect(0px, $clip-size, $clip-size, $clip-size - $path-width); }
 }
 
 .material-icons {
@@ -30,8 +16,11 @@ $path-width: 2px;
 .logo {
   grid-column: span 3;
   cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   img {
-    max-width: 180px;
+    max-width: 220px;
   }
 }
 .menu{
@@ -40,7 +29,7 @@ $path-width: 2px;
 }
 
 .nav-bar{
-  padding: 1em 0;
+  // padding: 1em 0;
   box-sizing: border-box;
   transition: transform 0.3s ease-out;
   background-color: #f2f2f2;
@@ -57,7 +46,7 @@ $path-width: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
+    // gap: 2rem;
 
     .nav-button {
       text-transform: uppercase;
@@ -65,6 +54,7 @@ $path-width: 2px;
       text-decoration: none;
       color: black;
       cursor: pointer;
+      padding: 2.25rem 1.5rem;
       &:hover{
         opacity: 0.7;
       }
@@ -78,12 +68,14 @@ $path-width: 2px;
     }
   }
 }
-
-.button {
+.button-wrapper{
   grid-column: 2;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+.button {
+  
   // background-color: #BF2121;
   .button-order{
     background-color: #BF2121;
@@ -117,7 +109,8 @@ $path-width: 2px;
         text-decoration: underline;
         display: inline;
         @media screen and (max-width: 768px) {
-          padding-right: 12px;
+          padding-right: 0px;
+          display: block;
           box-sizing: border-box;
         }
         
@@ -167,29 +160,41 @@ $path-width: 2px;
       transform: translateX(100%);
       display: flex;
       background-color: #f2f2f2;
-      top: 133.6px;
+      top: 388.59px;
       right: 0;
       bottom: 0;
       left: 0;
       transition: 0.3s ease-in-out;
+      align-items: center;
+      height: 100%;
       .nav-buttons{
         flex-direction: column;
         font-size: 1.2rem;
-        gap: 3rem;
-        padding-top: 1rem;
-       
+        // gap: 3rem;
+        // padding-top: 1rem;
+        width: 100%;
+        height: 40%;
+       .nav-button{
+        width: 100%;
+        text-align: center;
+       }
+      }
+      .button-wrapper{
+        justify-content: center!important;
+        position: relative;
+        height: 10%;
       }
       .button{
-        justify-content: center;
         padding-top: 4rem;
-        flex-direction: 0;
+        position: absolute;
+        bottom: 0;
         .button-order{
           padding: 1.125em 3.5625em;
           font-size: 1.25rem;
         }
       }
       &.open{
-        top: 133.6px;
+        top: 153.6px;
         transform: translateX(0);
         opacity: 1;
         

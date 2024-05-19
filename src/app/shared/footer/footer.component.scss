@@ -1,9 +1,9 @@
-footer {
+#footer {
   position: relative;
   margin-top: 2rem;
   // z-index: 1;
   .container {
-   
+    position: relative;
     background-color: #f2f2f2;
     // background-color: blue;
     padding: 1rem;
@@ -25,6 +25,9 @@ footer {
         font-size: 1.5rem;
       }
       .footer-item{
+        cursor: pointer;
+        color: black!important;
+        display: flex;
         font-size: 1rem;
         line-height: 1.5;
       }
@@ -48,7 +51,7 @@ footer {
 .button-up {
   position: absolute;
   top: 0;
-  right: 118px;
+  right: -64px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -94,22 +97,22 @@ footer {
   }
 
   @media (max-width: 768px) {
-    footer {
-      // display: block;
+    #footer {
       .container {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto;
         gap: 10px;
         text-align: center;
         padding: 0.5rem;
-  
         .logo {
           grid-column: 1;
         }
-  
         .contacts {
-          grid-column: 1;
+          grid-column: 1; 
         }
+      }
+      .footer-item{
+        justify-content: center;
       }
       .button-up {
         display: none;

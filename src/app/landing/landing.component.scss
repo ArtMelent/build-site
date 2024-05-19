@@ -44,6 +44,9 @@ $main-color: #BF2121;
 
 .our-serivces{
     margin-top: 3rem;
+    @media (max-width:768px) {
+        margin: 0 1rem;
+    }
     .headliner{
         grid-column: span 12;
         text-transform: uppercase;

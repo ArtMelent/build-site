@@ -19,6 +19,7 @@ html, body {
     margin-top: 8rem;
     // min-height: 100vh;
     @media screen and (max-width: 768px) {
+      margin-top: 10rem;
       overflow: hidden;
       position: relative;
     }
