@@ -23,7 +23,7 @@ export class LandingComponent {
     {
       slug: 'prokol-pid-dorohoiu',
       headline: 'Прокол під дорогою',
-      imageSrc: 'assets/service-under-road.png',
+      imageSrc: 'assets/service-under-road.webp',
       iconSrc: 'assets/service-icon.png',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
       price: '900'
@@ -31,7 +31,7 @@ export class LandingComponent {
     {
       slug: 'prokol-pid-zaliznytseiu',
       headline: 'Прокол під залізницею',
-      imageSrc: 'assets/under-railway.jpg',
+      imageSrc: 'assets/under-railway.webp',
       iconSrc: 'assets/service-icon.png',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
       price: '900'
@@ -39,7 +39,7 @@ export class LandingComponent {
     {
       slug: 'beztransheynoyu-rokladannya-vodoprovodu',
       headline: 'Безтраншейне прокладання водопроводу',
-      imageSrc: 'assets/laying-water.jpg',
+      imageSrc: 'assets/laying-water.webp',
       iconSrc: 'assets/service-icon.png',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
       price: '900'
@@ -47,7 +47,7 @@ export class LandingComponent {
     {
       slug: 'beztransheyne-prokladannya-kanalizatsiyi',
       headline: 'Безтраншейне прокладання каналізації',
-      imageSrc: 'assets/laying-sewerage.jpg',
+      imageSrc: 'assets/laying-sewerage.webp',
       iconSrc: 'assets/service-icon.png',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
       price: '900'
@@ -55,7 +55,7 @@ export class LandingComponent {
     {
       slug: 'spayka-trub',
       headline: 'Спайка труб',
-      imageSrc: 'assets/pipe-adhesion-2.jpg',
+      imageSrc: 'assets/pipe-adhesion-2.webp',
       iconSrc: 'assets/service-icon.png',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
       price: '900'
@@ -63,7 +63,7 @@ export class LandingComponent {
     // {
     //   slug: 'posluhy-traysheynoho-kopacha',
     //   headline: 'Послуги трайшейного копача',
-    //   imageSrc: 'assets/service-01.png',
+    //   imageSrc: 'assets/service-01.webp',
     //   iconSrc: 'assets/service-icon.png',
     //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
     //   price: '900'
@@ -71,7 +71,7 @@ export class LandingComponent {
     // {
     //   slug: 'znakhodzhennya-transheynykh-merezh',
     //   headline: 'Знаходження траншейних мереж',
-    //   imageSrc: 'assets/trench-digger.jpg',
+    //   imageSrc: 'assets/trench-digger.webp',
     //   iconSrc: 'assets/service-icon.png',
     //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
     //   price: '900'

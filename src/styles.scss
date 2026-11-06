@@ -6,7 +6,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 @font-face {
   font-family: 'Oswald';
-  src: url('./font/Oswald-VariableFont_wght.ttf');
+  src: url('./font/Oswald-VariableFont_wght.woff2') format('woff2'),
+       url('./font/Oswald-VariableFont_wght.ttf') format('truetype');
+  font-display: swap;
 }
 a{
   text-decoration: none;
