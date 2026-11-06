@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-trench-digger',
-  templateUrl: './trench-digger.component.html',
-  styleUrls: ['./trench-digger.component.scss']
+    selector: 'app-trench-digger',
+    templateUrl: './trench-digger.component.html',
+    styleUrls: ['./trench-digger.component.scss'],
+    standalone: false
 })
 export class TrenchDiggerComponent {
 

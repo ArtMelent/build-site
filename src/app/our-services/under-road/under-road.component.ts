@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-under-road',
-  templateUrl: './under-road.component.html',
-  styleUrls: ['./under-road.component.scss']
+    selector: 'app-under-road',
+    templateUrl: './under-road.component.html',
+    styleUrls: ['./under-road.component.scss'],
+    standalone: false
 })
 export class UnderRoadComponent implements OnInit {
  constructor(private title: Title){}

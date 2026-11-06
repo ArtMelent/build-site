@@ -2,9 +2,10 @@ import { Component, ElementRef, HostListener, OnInit, Renderer2 } from '@angular
 import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    standalone: false
 })
 export class HeaderComponent implements OnInit {
   isNavbarVisible: boolean = true;
