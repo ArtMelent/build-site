@@ -1,0 +1,86 @@
+@if (service(); as s) {
+  <section class="top">
+    <div class="container top__inner">
+      <div class="top__text">
+        <nav class="crumbs" aria-label="Навігація">
+          <a routerLink="/">Головна</a><span aria-hidden="true">/</span>
+          <a routerLink="/" fragment="services">Послуги</a><span aria-hidden="true">/</span>
+          <span aria-current="page">{{ s.title }}</span>
+        </nav>
+        <h1>{{ s.title }}</h1>
+        @if (s.intro) { <p class="lead-text">{{ s.intro }}</p> }
+        <div class="top__actions">
+          <button type="button" class="btn" (click)="dialog.show(s.slug)">Замовити розрахунок <app-icon name="arrow" /></button>
+          <a class="btn btn--ghost" [href]="site.phones[0].href"><app-icon name="phone" /> {{ site.phones[0].display }}</a>
+        </div>
+      </div>
+      @if (s.image_url) {
+        <div class="top__media">
+          <img [src]="s.image_url" [alt]="s.title" fetchpriority="high" width="720" height="480" />
+          @if (price()) { <span class="top__price">{{ price() }}</span> }
+        </div>
+      }
+    </div>
+  </section>
+
+  @if (s.highlights.length) {
+    <div class="container">
+      <ul class="highlights">
+        @for (h of s.highlights; track h; let i = $index) {
+          <li [reveal]="i * 70"><app-icon name="check" [stroke]="2.4" /> {{ h }}</li>
+        }
+      </ul>
+    </div>
+  }
+
+  <section class="section content-section">
+    <div class="container content">
+      <article class="prose" [innerHTML]="html()"></article>
+
+      <aside class="aside">
+        <div class="aside__card">
+          <p class="aside__label">Вартість</p>
+          <p class="aside__price">{{ price() ?? 'За домовленістю' }}</p>
+          <p class="aside__note">Точну ціну розрахує спеціаліст після огляду обʼєкта.</p>
+          <div class="aside__free">
+            <app-icon name="visit" [size]="22" />
+            <span>Виїзд спеціаліста й кошторис — <strong>безкоштовно</strong></span>
+          </div>
+          <button type="button" class="btn btn--block" (click)="dialog.show(s.slug)">Залишити заявку</button>
+          <a class="btn btn--ghost btn--block" [href]="site.phones[0].href"><app-icon name="phone" /> Подзвонити</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="zayavka">
+    <div class="container request">
+      <div reveal>
+        <p class="eyebrow">Безкоштовна консультація</p>
+        <h2>Розрахуємо вартість: {{ s.title.toLowerCase() }}</h2>
+        <p class="lead-text">Залиште номер: ми передзвонимо, уточнимо деталі й домовимося про виїзд спеціаліста.</p>
+      </div>
+      <div class="request__card" reveal="100">
+        <app-lead-form [serviceSlug]="s.slug" [hideService]="true" submitLabel="Замовити розрахунок" />
+      </div>
+    </div>
+  </section>
+
+  @if (others().length) {
+    <section class="section">
+      <div class="container">
+        <div class="others__head">
+          <h2>Інші послуги</h2>
+          <a class="link-arrow" routerLink="/" fragment="services">Усі послуги <app-icon name="arrow" /></a>
+        </div>
+        <div class="others">
+          @for (o of others(); track o.id; let i = $index) {
+            <app-service-card [service]="o" [reveal]="i * 90" />
+          }
+        </div>
+      </div>
+    </section>
+  }
+} @else {
+  <app-not-found />
+}

@@ -1,0 +1,174 @@
+<!-- Hero -->
+<section class="hero">
+  <img class="hero__bg" src="assets/banner.webp" alt="" fetchpriority="high" width="1920" height="564" />
+  <div class="container hero__inner">
+    <p class="eyebrow hero__eyebrow">Бурильна компанія GeniusDev</p>
+    <h1>Горизонтальне направлене буріння</h1>
+    <p class="hero__lead">
+      Прокладаємо труби й кабелі під дорогами, залізницею та ділянками без траншей.
+      Працюємо для житлових і промислових обʼєктів: на сучасному обладнанні, з дотриманням норм техбезпеки й точно в строк.
+    </p>
+    <div class="hero__actions">
+      <button type="button" class="btn" (click)="dialog.show()">Безкоштовний розрахунок <app-icon name="arrow" /></button>
+      <a class="btn btn--light" [href]="site.phones[0].href"><app-icon name="phone" /> {{ site.phones[0].display }}</a>
+    </div>
+  </div>
+</section>
+
+<div class="facts">
+  <div class="container">
+    <ul class="facts__list">
+      @for (f of facts; track f.label; let i = $index) {
+        <li [reveal]="i * 80">
+          <strong>{{ f.value }}</strong>
+          <span>{{ f.label }}</span>
+        </li>
+      }
+    </ul>
+  </div>
+</div>
+
+<!-- Services -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-head" reveal>
+      <p class="eyebrow">Що ми робимо</p>
+      <h2>Послуги</h2>
+      <p>Вказано мінімальні ціни. Точну вартість спеціаліст розрахує після безкоштовного виїзду на обʼєкт.</p>
+    </div>
+    <div class="services">
+      @for (s of data.services(); track s.id; let i = $index) {
+        <app-service-card [service]="s" [reveal]="(i % 3) * 90" />
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Benefits -->
+<section class="section section--soft">
+  <div class="container">
+    <div class="section-head" reveal>
+      <p class="eyebrow">Чому ГНБ</p>
+      <h2>Комунікації під землею — без розкопаної ділянки</h2>
+    </div>
+    <ul class="benefits">
+      @for (b of benefits; track b.title; let i = $index) {
+        <li [reveal]="i * 80">
+          <span class="benefits__icon"><app-icon [name]="b.icon" [size]="26" /></span>
+          <h3>{{ b.title }}</h3>
+          <p>{{ b.text }}</p>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<!-- Process -->
+<section class="section" id="process">
+  <div class="container">
+    <div class="section-head" reveal>
+      <p class="eyebrow">Як ми працюємо</p>
+      <h2>Чотири кроки до готової траси</h2>
+    </div>
+    <div class="process">
+      <span class="process__bore" aria-hidden="true"><span class="process__drill"></span></span>
+      <ol class="process__steps">
+      @for (s of steps; track s.title; let i = $index) {
+        <li class="step" [reveal]="i * 110">
+          <span class="step__num">{{ i + 1 }}</span>
+          <h3>{{ s.title }}</h3>
+          <p>{{ s.text }}</p>
+        </li>
+      }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section class="section section--ink" id="projects">
+  <div class="container">
+    <div class="section-head" reveal>
+      <p class="eyebrow">Ділимося результатами</p>
+      <h2>Реалізовані проєкти</h2>
+      <p>Кілька обʼєктів, на яких працювала наша бригада.</p>
+    </div>
+    <div class="gallery">
+      @for (v of videos; track v.src; let i = $index) {
+        <figure class="gallery__item gallery__item--video" [reveal]="i * 90">
+          <video controls preload="none" playsinline [poster]="v.poster" width="480" height="848">
+            <source [src]="v.src" type="video/mp4" />
+          </video>
+        </figure>
+      }
+      <figure class="gallery__item gallery__item--wide" reveal>
+        <img src="assets/photo-portfolio-2.webp" alt="Бригада виконує безтраншейне прокладання труб" loading="lazy" width="1600" height="720" />
+      </figure>
+      <figure class="gallery__item" reveal="90">
+        <img src="assets/photo-portfolio-1.webp" alt="Буріння на обʼєкті" loading="lazy" width="768" height="1024" />
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section" id="about">
+  <div class="container about">
+    <div class="about__text" reveal>
+      <p class="eyebrow">Про компанію</p>
+      <h2>Безтраншейні роботи без зайвих витрат</h2>
+      <p class="lead-text">
+        Ми виконуємо широкий спектр безтраншейних робіт, щоб ви могли прокласти комунікації без зайвих витрат часу й коштів.
+        Працюємо лише безтраншейними технологіями: це дешевше, ніж традиційне розкопування, і значно скорочує строки.
+      </p>
+      <ul class="checks">
+        <li><app-icon name="check" [stroke]="2.4" /> Сучасне обладнання й дотримання норм техбезпеки</li>
+        <li><app-icon name="check" [stroke]="2.4" /> Роботи точно в погоджені строки</li>
+        <li><app-icon name="check" [stroke]="2.4" /> Житлові та промислові обʼєкти</li>
+        <li><app-icon name="check" [stroke]="2.4" /> Безкоштовний виїзд спеціаліста й кошторис</li>
+      </ul>
+    </div>
+    <div class="about__media" reveal="120">
+      <img src="assets/about-us.webp" alt="Бурова установка GeniusDev на обʼєкті" loading="lazy" width="702" height="638" />
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section--soft" id="faq">
+  <div class="container faq">
+    <div class="section-head" reveal>
+      <p class="eyebrow">Питання й відповіді</p>
+      <h2>Що зазвичай питають</h2>
+      <p>Не знайшли відповідь? <a [href]="site.phones[0].href">Зателефонуйте нам</a> — підкажемо.</p>
+    </div>
+    <div class="faq__list">
+      @for (f of faq; track f.q; let first = $first) {
+        <details [open]="first" reveal>
+          <summary>{{ f.q }} <app-icon name="plus" class="faq__icon" /></summary>
+          <p>{{ f.a }}</p>
+        </details>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Request -->
+<section class="section request" id="zayavka">
+  <div class="container request__inner">
+    <div class="request__text" reveal>
+      <p class="eyebrow">Безкоштовна консультація</p>
+      <h2>Розрахуємо вартість вашого обʼєкта</h2>
+      <p class="lead-text">Залиште контакти: ми передзвонимо, уточнимо задачу й домовимося про виїзд спеціаліста. Виїзд і кошторис безкоштовні.</p>
+      <ul class="request__contacts">
+        @for (p of site.phones; track p.href) {
+          <li><a [href]="p.href"><app-icon name="phone" /> {{ p.display }}</a></li>
+        }
+        <li><a [href]="'mailto:' + site.email"><app-icon name="mail" /> {{ site.email }}</a></li>
+      </ul>
+    </div>
+    <div class="request__card" reveal="120">
+      <app-lead-form />
+    </div>
+  </div>
+</section>

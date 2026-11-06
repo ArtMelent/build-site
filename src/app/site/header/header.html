@@ -1,0 +1,65 @@
+<div class="bar">
+  <div class="container bar__inner">
+    <a class="logo" routerLink="/" aria-label="GeniusDev — на головну">
+      <img src="assets/logo.svg" alt="GeniusDev" width="150" height="48" />
+    </a>
+
+    <nav class="nav" aria-label="Головне меню">
+      <div class="dropdown" (mouseenter)="servicesOpen.set(true)" (mouseleave)="servicesOpen.set(false)">
+        <button type="button" class="nav__link" [attr.aria-expanded]="servicesOpen()" aria-controls="services-menu"
+                (click)="toggleServices()">
+          Послуги <app-icon name="chevron" [size]="16" class="nav__chev" [class.is-open]="servicesOpen()" />
+        </button>
+        <div class="dropdown__panel" id="services-menu" [class.is-open]="servicesOpen()">
+          <ul>
+            @for (s of data.services(); track s.id) {
+              <li><a [routerLink]="['/services', s.slug]" routerLinkActive="is-active">{{ s.title }}</a></li>
+            }
+          </ul>
+        </div>
+      </div>
+      <a class="nav__link" routerLink="/" fragment="process">Як ми працюємо</a>
+      <a class="nav__link" routerLink="/" fragment="projects">Проєкти</a>
+      <a class="nav__link" routerLink="/contacts" routerLinkActive="is-active">Контакти</a>
+    </nav>
+
+    <div class="actions">
+      <a class="phone" [href]="site.phones[0].href">
+        <app-icon name="phone" [size]="18" />
+        <span>{{ site.phones[0].display }}</span>
+      </a>
+      <button type="button" class="btn btn--sm request" (click)="request()">Залишити заявку</button>
+      <a class="icon-btn only-mobile" [href]="site.phones[0].href" aria-label="Зателефонувати {{ site.phones[0].display }}">
+        <app-icon name="phone" />
+      </a>
+      <button type="button" class="icon-btn only-mobile" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()"
+              aria-controls="mobile-menu" [attr.aria-label]="menuOpen() ? 'Закрити меню' : 'Відкрити меню'">
+        <app-icon [name]="menuOpen() ? 'close' : 'menu'" />
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="sheet" id="mobile-menu" [class.is-open]="menuOpen()" [attr.aria-hidden]="!menuOpen()" [attr.inert]="menuOpen() ? null : ''">
+  <nav class="sheet__body container" aria-label="Мобільне меню">
+    <p class="sheet__label">Послуги</p>
+    <ul class="sheet__services">
+      @for (s of data.services(); track s.id) {
+        <li><a [routerLink]="['/services', s.slug]">{{ s.title }} <app-icon name="arrow" [size]="18" /></a></li>
+      }
+    </ul>
+    <div class="sheet__links">
+      <a routerLink="/" fragment="process">Як ми працюємо</a>
+      <a routerLink="/" fragment="projects">Проєкти</a>
+      <a routerLink="/" fragment="faq">Питання й відповіді</a>
+      <a routerLink="/contacts">Контакти</a>
+    </div>
+    <div class="sheet__contacts">
+      @for (p of site.phones; track p.href) {
+        <a [href]="p.href"><app-icon name="phone" [size]="18" /> {{ p.display }}</a>
+      }
+      <a [href]="'mailto:' + site.email"><app-icon name="mail" [size]="18" /> {{ site.email }}</a>
+    </div>
+    <button type="button" class="btn btn--block" (click)="request()">Залишити заявку</button>
+  </nav>
+</div>
