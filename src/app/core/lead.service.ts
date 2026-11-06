@@ -1,5 +1,13 @@
 import { Injectable } from '@angular/core';
 import type { LeadRequest } from './models';
+import { ENV } from './env';
+
+/**
+ * A build without SITE_URL (local `npm start`, the design preview) has no form handler.
+ * There the form only pretends to send. Real builds always set SITE_URL, so a missing
+ * handler is reported as an error instead of silently losing the request.
+ */
+const IS_PREVIEW = !ENV.siteUrl;
 
 export type LeadResult =
   | { ok: true; preview?: boolean }
@@ -17,18 +25,22 @@ export class LeadService {
         body: JSON.stringify(payload),
       });
     } catch {
+      if (IS_PREVIEW) return { ok: true, preview: true };
       return { ok: false, message: 'Немає зʼєднання. Перевірте інтернет або зателефонуйте нам.' };
     }
 
-    // No API on this host (local `npm start` or a static preview): nothing to send to.
-    if (res.status === 404 || res.status === 405) return { ok: true, preview: true };
-
-    let body: { ok?: boolean; error?: string; errors?: Record<string, string> } = {};
+    let body: { ok?: boolean; error?: string; errors?: Record<string, string> } | null = null;
     try {
       body = await res.json();
     } catch {
-      /* non-JSON error page */
+      /* not our handler: an HTML error page */
     }
+    if (!body && IS_PREVIEW) return { ok: true, preview: true };
+    if (!body && (res.status === 404 || res.status === 405)) {
+      console.error('/api/lead is missing on this host — see DEPLOY.md');
+      return { ok: false, message: 'Сервіс заявок тимчасово недоступний. Зателефонуйте нам, будь ласка.' };
+    }
+    body ??= {};
     if (res.ok && body.ok) return { ok: true };
     return {
       ok: false,
