@@ -1,9 +1,10 @@
-import { Component, AfterViewInit, Renderer2 } from '@angular/core';
+import { Component, AfterViewInit, Renderer2, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'app-footer',
     templateUrl: './footer.component.html',
     styleUrls: ['./footer.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class FooterComponent {

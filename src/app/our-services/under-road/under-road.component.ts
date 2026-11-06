@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-under-road',
     templateUrl: './under-road.component.html',
     styleUrls: ['./under-road.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class UnderRoadComponent implements OnInit {
