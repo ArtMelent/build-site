@@ -5,8 +5,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LandingComponent } from './landing/landing.component';
-import { MaterialModule } from './material/material.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { UnderRoadComponent } from './our-services/under-road/under-road.component';
 import { UnderRailwayComponent } from './our-services/under-railway/under-railway.component';
 import { AboutUsComponent } from './about-us/about-us.component';
@@ -38,10 +37,8 @@ import { FindingNetworksComponent } from './our-services/finding-networks/findin
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MaterialModule,
-    BrowserAnimationsModule,
-    
-    
+    // Used by the FAQ accordion on the landing page (currently commented out)
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
