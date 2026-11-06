@@ -157,7 +157,7 @@
 .checks li { display: flex; gap: 12px; align-items: flex-start; }
 .checks app-icon { color: var(--red); margin-top: 3px; }
 .about__media img { width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
-@media (max-width: 860px) { .about { grid-template-columns: 1fr; } .about__media { order: -1; } }
+@media (max-width: 860px) { .about { grid-template-columns: 1fr; } .about__media { display: none; } }
 
 /* ---------- FAQ ---------- */
 .faq { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(24px, 5vw, 64px); align-items: start; }

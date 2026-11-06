@@ -1,6 +1,6 @@
-// Writes sitemap.xml and robots.txt into the build output.
+// Writes sitemap.xml, robots.txt and 404.html into the build output.
 // Lists the pages that were prerendered (one folder with index.html per page).
-import { existsSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const out = 'dist/mysite/browser';
@@ -30,4 +30,7 @@ writeFileSync(
   join(out, 'robots.txt'),
   `User-agent: *\nAllow: /\n${site ? `\nSitemap: ${site}/sitemap.xml\n` : ''}`,
 );
+// Unknown URLs: hosts (Cloudflare Pages, Apache via .htaccess) serve 404.html, which boots the app and shows its 404 page.
+if (existsSync(join(out, 'index.csr.html'))) copyFileSync(join(out, 'index.csr.html'), join(out, '404.html'));
+
 console.log(`sitemap: ${pages.length} pages${site ? '' : ' (SITE_URL not set — sitemap.xml skipped)'}`);

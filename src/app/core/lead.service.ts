@@ -5,7 +5,7 @@ export type LeadResult =
   | { ok: true; preview?: boolean }
   | { ok: false; message: string; fieldErrors?: Record<string, string> };
 
-/** Sends the request form to /api/lead (a Vercel Function that forwards it to Telegram and email). */
+/** Sends the request form to /api/lead (Cloudflare Pages Function or PHP script), which forwards it to Telegram and email. */
 @Injectable({ providedIn: 'root' })
 export class LeadService {
   async submit(payload: LeadRequest): Promise<LeadResult> {

@@ -11,7 +11,8 @@
     "prebuild": "npm run env",
     "postbuild": "node scripts/sitemap.mjs",
     "test:api": "node --experimental-strip-types --test server/lead.test.ts",
-    "test": "npm run test:api"
+    "test": "npm run test:api",
+    "build:php": "npm run build && node scripts/pack-php.mjs"
   },
   "private": true,
   "dependencies": {

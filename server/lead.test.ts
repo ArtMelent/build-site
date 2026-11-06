@@ -84,10 +84,11 @@ test('same IP more than 5 times → 429', async () => {
   assert.equal((await handleLead(req(good(), ip), env, f)).status, 429);
 });
 
-test('other website origin → 403; vercel preview allowed', async () => {
+test('other website origin → 403; Cloudflare preview allowed', async () => {
   const { f } = fakeFetch();
   assert.equal((await handleLead(req(good(), { origin: 'https://evil.example' }), env, f)).status, 403);
-  assert.equal((await handleLead(req(good(), { origin: 'https://build-site-git-x.vercel.app' }), env, f)).status, 200);
+  assert.equal((await handleLead(req(good(), { origin: 'https://abc123.build-site.pages.dev' }), env, f)).status, 200);
+  assert.equal((await handleLead(req(good(), { origin: 'https://www.' + new URL(env.SITE_URL!).host }), env, f)).status, 200);
 });
 
 test('Telegram down but email works → 200', async () => {

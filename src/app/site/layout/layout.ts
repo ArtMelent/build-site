@@ -22,8 +22,13 @@ import { SITE } from '../../core/site';
     <div class="copied" popover="manual" role="status" #copiedEl>
       <app-icon name="check" [stroke]="2.4" />
       <span>
-        Номер <strong>{{ copied() }}</strong>
-        @if (copyOk()) { скопійовано. Наберіть його з телефона. } @else { — наберіть його з телефона. }
+        @if (copiedKind() === 'mail') {
+          Пошту <strong>{{ copied() }}</strong>
+          @if (copyOk()) { скопійовано. Вставте її в поле «Кому» свого листа. } @else { — напишіть нам на цю адресу. }
+        } @else {
+          Номер <strong>{{ copied() }}</strong>
+          @if (copyOk()) { скопійовано. Наберіть його з телефона. } @else { — наберіть його з телефона. }
+        }
       </span>
     </div>
 
@@ -66,22 +71,27 @@ export class SiteLayout {
   protected readonly dialog = inject(LeadDialogService);
   protected readonly copied = signal<string | null>(null);
   protected readonly copyOk = signal(false);
+  protected readonly copiedKind = signal<'tel' | 'mail'>('tel');
   private hideTimer?: ReturnType<typeof setTimeout>;
   private readonly copiedEl = viewChild.required<ElementRef<HTMLElement>>('copiedEl');
 
   /**
-   * On computers a tel: link opens an empty tab or a calling app nobody uses,
-   * so there a click copies the number instead. Phones keep the normal call behaviour.
+   * On computers tel: and mailto: links often open an empty tab or an app nobody has set up,
+   * so there a click copies the number or address instead. Phones keep the normal behaviour.
    */
   protected onDocumentClick(event: MouseEvent): void {
-    const link = (event.target as Element | null)?.closest?.('a[href^="tel:"]') as HTMLAnchorElement | null;
+    const link = (event.target as Element | null)?.closest?.('a[href^="tel:"], a[href^="mailto:"]') as HTMLAnchorElement | null;
     if (!link || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     event.preventDefault();
     const href = link.getAttribute('href')!;
-    const number = SITE.phones.find((p) => p.href === href)?.display ?? href.replace('tel:', '');
+    const isMail = href.startsWith('mailto:');
+    const value = isMail
+      ? decodeURIComponent(href.slice('mailto:'.length).split('?')[0])
+      : (SITE.phones.find((p) => p.href === href)?.display ?? href.replace('tel:', ''));
+    this.copiedKind.set(isMail ? 'mail' : 'tel');
     this.copyOk.set(false);
-    this.copied.set(number);
-    navigator.clipboard?.writeText(number).then(
+    this.copied.set(value);
+    navigator.clipboard?.writeText(value).then(
       () => this.copyOk.set(true),
       () => this.copyOk.set(false),
     );

@@ -1,8 +1,8 @@
 /**
  * Lead (form submission) handling for POST /api/lead.
  *
- * Kept outside `api/` so it is not deployed as its own function and can be
- * unit-tested with a fake `fetch`. Uses plain REST calls (Telegram Bot API, Resend),
+ * Runs as a Cloudflare Pages Function (functions/api/lead.ts). Kept here so it can be
+ * unit-tested with a fake `fetch`. The PHP version for classic hosting is hosting/php/api/lead.php. Uses plain REST calls (Telegram Bot API, Resend),
  * so the function has no runtime dependencies. Nothing is stored.
  */
 
@@ -99,10 +99,12 @@ export async function handleLead(request: Request, env: LeadEnv, fetchImpl: Fetc
   // Same-site only: reject posts from other websites.
   const origin = request.headers.get('origin');
   if (env.SITE_URL && origin) {
-    const allowed = new URL(env.SITE_URL).host;
-    const host = new URL(origin).host;
-    const isVercelPreview = host.endsWith('.vercel.app');
-    if (host !== allowed && !isVercelPreview) return json(403, { ok: false, error: 'Forbidden' });
+    const bare = (h: string) => h.toLowerCase().replace(/^www\./, '');
+    const allowed = bare(new URL(env.SITE_URL).host);
+    const host = bare(new URL(origin).host);
+    // Cloudflare preview deployments live on *.pages.dev.
+    const isPreview = host.endsWith('.pages.dev');
+    if (host !== allowed && !isPreview) return json(403, { ok: false, error: 'Forbidden' });
   }
 
   const raw = await request.text();
@@ -127,7 +129,11 @@ export async function handleLead(request: Request, env: LeadEnv, fetchImpl: Fetc
   if (!result.ok) return json(422, { ok: false, errors: result.errors });
   const lead = result.lead;
 
-  const ip = (request.headers.get('x-forwarded-for') ?? '').split(',')[0].trim() || request.headers.get('x-real-ip') || '';
+  const ip =
+    request.headers.get('cf-connecting-ip') ||
+    (request.headers.get('x-forwarded-for') ?? '').split(',')[0].trim() ||
+    request.headers.get('x-real-ip') ||
+    '';
   if (isRateLimited(`phone:${lead.phone}`, MAX_PER_PHONE) || (ip && isRateLimited(`ip:${ip}`, MAX_PER_IP))) {
     return json(429, { ok: false, error: 'Заявку вже отримано. Ми скоро зателефонуємо.' });
   }
