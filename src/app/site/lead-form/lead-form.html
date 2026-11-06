@@ -1,0 +1,64 @@
+@if (status() === 'done') {
+  <div class="success" role="status">
+    <span class="success__icon"><app-icon name="check" [size]="28" [stroke]="2.4" /></span>
+    <p class="success__title">Дякуємо, заявку отримано!</p>
+    <p>Ми зателефонуємо вам найближчим часом. Якщо питання термінове — дзвоніть: <a [href]="site.phones[0].href">{{ site.phones[0].display }}</a></p>
+    @if (demo()) {
+      <p class="demo-note">Це прев'ю без сервера: заявку не надіслано. На опублікованому сайті вона прийде в Telegram і на пошту.</p>
+    }
+    <button type="button" class="btn btn--ghost btn--sm" (click)="reset()">Надіслати ще одну</button>
+  </div>
+} @else {
+  <form class="form" novalidate (submit)="submit($event)" [attr.aria-busy]="status() === 'sending'">
+    <div class="row">
+      <div class="field">
+        <label [for]="id + '-name'">Ваше ім'я</label>
+        <input class="input" [id]="id + '-name'" name="name" autocomplete="name" maxlength="100"
+               [class.is-invalid]="errors()['name']" [attr.aria-invalid]="!!errors()['name']"
+               [attr.aria-describedby]="errors()['name'] ? id + '-name-err' : null"
+               [value]="name()" (input)="name.set(value($event))" (blur)="onBlur()" placeholder="Іван" />
+        @if (errors()['name']) { <span class="error" [id]="id + '-name-err'">{{ errors()['name'] }}</span> }
+      </div>
+      <div class="field">
+        <label [for]="id + '-phone'">Телефон</label>
+        <input class="input" [id]="id + '-phone'" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30"
+               [class.is-invalid]="errors()['phone']" [attr.aria-invalid]="!!errors()['phone']"
+               [attr.aria-describedby]="errors()['phone'] ? id + '-phone-err' : null"
+               [value]="phone()" (input)="phone.set(value($event))" (blur)="onBlur()" placeholder="067 123 45 67" />
+        @if (errors()['phone']) { <span class="error" [id]="id + '-phone-err'">{{ errors()['phone'] }}</span> }
+      </div>
+    </div>
+
+    @if (!hideService()) {
+      <div class="field">
+        <label [for]="id + '-service'">Послуга <span class="optional">(необов'язково)</span></label>
+        <select class="input" [id]="id + '-service'" name="service" [value]="service()" (change)="service.set(value($event))">
+          <option value="">Ще не знаю — потрібна консультація</option>
+          @for (s of data.services(); track s.id) {
+            <option [value]="s.slug" [selected]="s.slug === service()">{{ s.title }}</option>
+          }
+        </select>
+      </div>
+    }
+
+    <div class="field">
+      <label [for]="id + '-message'">Коротко про задачу <span class="optional">(необов'язково)</span></label>
+      <textarea class="input" [id]="id + '-message'" name="message" rows="3" maxlength="2000"
+                [value]="message()" (input)="message.set(value($event))"
+                placeholder="Наприклад: прокол під дорогою, близько 20 м, Львівська обл."></textarea>
+    </div>
+
+    <!-- Hidden from people; bots fill it in. -->
+    <div class="hp" aria-hidden="true">
+      <label [for]="id + '-website'">Не заповнюйте це поле</label>
+      <input [id]="id + '-website'" name="website" tabindex="-1" autocomplete="off" [value]="website()" (input)="website.set(value($event))" />
+    </div>
+
+    @if (formError()) { <p class="form-error" role="alert">{{ formError() }}</p> }
+
+    <button type="submit" class="btn btn--block" [disabled]="status() === 'sending'">
+      @if (status() === 'sending') { Надсилаємо… } @else { {{ submitLabel() }} <app-icon name="arrow" /> }
+    </button>
+    <p class="note">Виїзд спеціаліста й кошторис — безкоштовно. Телефонуємо лише щодо вашої заявки.</p>
+  </form>
+}

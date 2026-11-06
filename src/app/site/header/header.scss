@@ -1,0 +1,120 @@
+:host {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: block;
+}
+
+.bar {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+:host(.is-scrolled) .bar { border-color: var(--line); box-shadow: 0 6px 24px rgba(26, 24, 24, 0.07); }
+
+.bar__inner {
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  transition: height 0.3s var(--ease);
+}
+:host(.is-scrolled) .bar__inner { height: 62px; }
+
+.logo { flex: none; display: block; }
+.logo img { width: 150px; height: auto; transition: width 0.3s var(--ease); }
+:host(.is-scrolled) .logo img { width: 132px; }
+
+.nav { display: flex; align-items: center; gap: 4px; margin-inline: auto; }
+.nav__link {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 10px 14px;
+  border: 0; background: none; cursor: pointer;
+  font-family: var(--font-display); font-size: 0.98rem; font-weight: 500;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none;
+  border-radius: var(--radius);
+  transition: color 0.2s, background-color 0.2s;
+}
+.nav__link:hover, .nav__link.is-active { color: var(--red); }
+.nav__chev { transition: transform 0.25s var(--ease); }
+.nav__chev.is-open { transform: rotate(180deg); }
+
+.dropdown { position: relative; }
+.dropdown__panel {
+  position: absolute; top: 100%; left: -8px;
+  min-width: 330px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  opacity: 0; visibility: hidden; transform: translateY(6px);
+  transition: opacity 0.2s, transform 0.25s var(--ease), visibility 0.2s;
+}
+.dropdown__panel.is-open { opacity: 1; visibility: visible; transform: none; }
+.dropdown__panel ul { list-style: none; margin: 0; padding: 0; display: grid; }
+.dropdown__panel a {
+  display: block; padding: 10px 12px; border-radius: var(--radius);
+  color: var(--text); text-decoration: none; font-size: 0.97rem;
+}
+.dropdown__panel a:hover, .dropdown__panel a.is-active { background: var(--red-tint); color: var(--red-dark); }
+
+.actions { display: flex; align-items: center; gap: 16px; flex: none; }
+.phone {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--ink); text-decoration: none; font-weight: 500; white-space: nowrap;
+}
+.phone app-icon { color: var(--red); }
+.phone:hover { color: var(--red); }
+
+.icon-btn {
+  display: none;
+  width: 44px; height: 44px; place-items: center;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: #fff; color: var(--ink); cursor: pointer;
+}
+.icon-btn:hover { border-color: var(--ink); }
+
+/* Mobile sheet */
+.sheet {
+  position: fixed; inset: var(--header-h) 0 0 0;
+  background: #fff; overflow-y: auto;
+  opacity: 0; visibility: hidden; transform: translateY(-8px);
+  transition: opacity 0.25s, transform 0.3s var(--ease), visibility 0.25s;
+  border-top: 1px solid var(--line);
+}
+.sheet.is-open { opacity: 1; visibility: visible; transform: none; }
+.sheet__body { display: grid; gap: 24px; padding-block: 20px 40px; }
+.sheet__label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.sheet__services { list-style: none; margin: -12px 0 0; padding: 0; }
+.sheet__services a {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  padding: 14px 0; border-bottom: 1px solid var(--line);
+  color: var(--ink); text-decoration: none; font-size: 1.05rem;
+}
+.sheet__services app-icon { color: var(--red); }
+.sheet__links { display: grid; gap: 4px; }
+.sheet__links a {
+  padding: 8px 0; color: var(--ink); text-decoration: none;
+  font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.05em; font-size: 1.15rem;
+}
+.sheet__contacts { display: grid; gap: 12px; padding: 18px; background: var(--bg-soft); border-radius: var(--radius-lg); }
+.sheet__contacts a { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-weight: 500; }
+.sheet__contacts app-icon { color: var(--red); }
+
+@media (max-width: 1080px) {
+  .phone span { display: none; }
+  .phone { width: 44px; height: 44px; justify-content: center; border: 1px solid var(--line); border-radius: var(--radius); }
+}
+@media (max-width: 920px) {
+  .nav, .phone, .request { display: none; }
+  .icon-btn.only-mobile { display: grid; }
+  .actions { margin-left: auto; gap: 8px; }
+  .bar__inner { height: 64px; }
+  .logo img { width: 128px; }
+  .sheet { inset-block-start: 64px; }
+  :host(.is-scrolled) .bar__inner { height: 64px; }
+  :host(.is-scrolled) .logo img { width: 128px; }
+}
