@@ -2,13 +2,11 @@
  * Lead (form submission) handling for POST /api/lead.
  *
  * Kept outside `api/` so it is not deployed as its own function and can be
- * unit-tested with a fake `fetch`. Uses plain REST calls (Supabase PostgREST,
- * Telegram Bot API, Resend) so the function has no runtime dependencies.
+ * unit-tested with a fake `fetch`. Uses plain REST calls (Telegram Bot API, Resend),
+ * so the function has no runtime dependencies. Nothing is stored.
  */
 
 export interface LeadEnv {
-  SUPABASE_URL?: string;
-  SUPABASE_SERVICE_ROLE_KEY?: string;
   TELEGRAM_BOT_TOKEN?: string;
   /** One chat id, or several separated by commas. */
   TELEGRAM_CHAT_ID?: string;
@@ -17,10 +15,8 @@ export interface LeadEnv {
   LEAD_EMAIL_TO?: string;
   /** e.g. "GeniusDev <zayavky@your-domain.com>" — the domain must be verified in Resend. */
   LEAD_EMAIL_FROM?: string;
-  /** Public site URL, used for the admin link in notifications and the origin check. */
+  /** Public site URL, used to reject submissions sent from other websites. */
   SITE_URL?: string;
-  /** Extra salt for hashing IPs. Falls back to the service-role key. */
-  LEAD_IP_SALT?: string;
 }
 
 export interface LeadInput {
@@ -28,10 +24,12 @@ export interface LeadInput {
   phone: string;
   message: string;
   serviceSlug: string | null;
+  serviceTitle: string | null;
   sourcePage: string | null;
 }
 
 type Fetch = typeof fetch;
+
 
 const MAX_BODY_BYTES = 10_000;
 const MIN_FILL_MS = 2_000; // humans don't fill a form in under 2 seconds
@@ -65,6 +63,7 @@ export function validate(body: Record<string, unknown>):
   const phone = normalizePhone(clean(body['phone'], 30));
   const message = clean(body['message'], 2000);
   const slug = clean(body['serviceSlug'], 120);
+  const serviceTitle = clean(body['serviceTitle'], 150) || null;
   const sourcePage = clean(body['sourcePage'], 200) || null;
 
   if (!name) errors['name'] = "Вкажіть ім'я";
@@ -72,12 +71,22 @@ export function validate(body: Record<string, unknown>):
   if (slug && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) errors['serviceSlug'] = 'Невідома послуга';
 
   if (Object.keys(errors).length) return { ok: false, errors };
-  return { ok: true, lead: { name, phone: phone!, message, serviceSlug: slug || null, sourcePage } };
+  return { ok: true, lead: { name, phone: phone!, message, serviceSlug: slug || null, serviceTitle, sourcePage } };
 }
 
-async function sha256(text: string): Promise<string> {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
-  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
+/**
+ * Best-effort rate limit kept in the function's memory. Warm instances are reused,
+ * so this stops repeated submits; it resets when the instance is recycled.
+ */
+const recent = new Map<string, number[]>();
+export function isRateLimited(key: string, max: number, now = Date.now()): boolean {
+  const since = now - WINDOW_MINUTES * 60_000;
+  const hits = (recent.get(key) ?? []).filter((t) => t > since);
+  const limited = hits.length >= max;
+  if (!limited) hits.push(now);
+  recent.set(key, hits);
+  if (recent.size > 5_000) recent.clear();
+  return limited;
 }
 
 const escapeHtml = (s: string) =>
@@ -118,70 +127,12 @@ export async function handleLead(request: Request, env: LeadEnv, fetchImpl: Fetc
   if (!result.ok) return json(422, { ok: false, errors: result.errors });
   const lead = result.lead;
 
-  const hasDb = !!(env.SUPABASE_URL && env.SUPABASE_SERVICE_ROLE_KEY);
-  const db = (path: string, init: RequestInit = {}) =>
-    fetchImpl(`${env.SUPABASE_URL!.replace(/\/$/, '')}/rest/v1/${path}`, {
-      ...init,
-      headers: {
-        apikey: env.SUPABASE_SERVICE_ROLE_KEY!,
-        authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
-        'content-type': 'application/json',
-        ...(init.headers ?? {}),
-      },
-    });
-
   const ip = (request.headers.get('x-forwarded-for') ?? '').split(',')[0].trim() || request.headers.get('x-real-ip') || '';
-  const ipHash = ip ? await sha256(`${env.LEAD_IP_SALT ?? env.SUPABASE_SERVICE_ROLE_KEY ?? ''}:${ip}`) : null;
-
-  let service: { id: string; title: string } | null = null;
-  let saved = false;
-
-  if (hasDb) {
-    try {
-      // Rate limit by phone and by IP over the last few minutes.
-      const since = new Date(Date.now() - WINDOW_MINUTES * 60_000).toISOString();
-      const count = async (filter: string) => {
-        const r = await db(`leads?select=id&created_at=gte.${encodeURIComponent(since)}&${filter}`, {
-          method: 'HEAD',
-          headers: { prefer: 'count=exact' },
-        });
-        return Number((r.headers.get('content-range') ?? '*/0').split('/')[1]) || 0;
-      };
-      const [byPhone, byIp] = await Promise.all([
-        count(`phone=eq.${encodeURIComponent(lead.phone)}`),
-        ipHash ? count(`ip_hash=eq.${ipHash}`) : Promise.resolve(0),
-      ]);
-      if (byPhone >= MAX_PER_PHONE || byIp >= MAX_PER_IP) {
-        return json(429, { ok: false, error: 'Заявку вже отримано. Ми скоро зателефонуємо.' });
-      }
-
-      if (lead.serviceSlug) {
-        const r = await db(`services?select=id,title&slug=eq.${lead.serviceSlug}&limit=1`);
-        if (r.ok) service = ((await r.json()) as { id: string; title: string }[])[0] ?? null;
-      }
-
-      const r = await db('leads', {
-        method: 'POST',
-        headers: { prefer: 'return=minimal' },
-        body: JSON.stringify({
-          name: lead.name,
-          phone: lead.phone,
-          message: lead.message,
-          service_id: service?.id ?? null,
-          service_title: service?.title ?? null,
-          source_page: lead.sourcePage,
-          ip_hash: ipHash,
-        }),
-      });
-      saved = r.ok;
-      if (!r.ok) console.error('lead insert failed', r.status, await r.text());
-    } catch (e) {
-      console.error('lead db error', e);
-    }
+  if (isRateLimited(`phone:${lead.phone}`, MAX_PER_PHONE) || (ip && isRateLimited(`ip:${ip}`, MAX_PER_IP))) {
+    return json(429, { ok: false, error: 'Заявку вже отримано. Ми скоро зателефонуємо.' });
   }
 
-  const adminUrl = env.SITE_URL ? `${env.SITE_URL.replace(/\/$/, '')}/admin/leads` : null;
-  const serviceLine = service?.title ?? (lead.serviceSlug ? lead.serviceSlug : 'не вказано');
+  const serviceLine = lead.serviceTitle || lead.serviceSlug || 'не вказано';
 
   const notifications: Promise<boolean>[] = [];
 
@@ -193,8 +144,6 @@ export async function handleLead(request: Request, env: LeadEnv, fetchImpl: Fetc
       `🛠 ${escapeHtml(serviceLine)}`,
       lead.message ? `💬 ${escapeHtml(lead.message)}` : null,
       lead.sourcePage ? `📄 ${escapeHtml(lead.sourcePage)}` : null,
-      !saved && hasDb ? '⚠️ Не вдалося зберегти в базі — передзвоніть за номером вище.' : null,
-      adminUrl && saved ? `<a href="${adminUrl}">Відкрити в адмінці</a>` : null,
     ].filter(Boolean).join('\n');
 
     for (const chatId of env.TELEGRAM_CHAT_ID.split(',').map((s) => s.trim()).filter(Boolean)) {
@@ -219,7 +168,7 @@ export async function handleLead(request: Request, env: LeadEnv, fetchImpl: Fetc
     const html = `<h2 style="font-family:sans-serif">Нова заявка з сайту</h2>
 <table style="font-family:sans-serif;font-size:15px;border-collapse:collapse">${rows
       .map(([k, v]) => `<tr><td style="padding:6px 16px 6px 0;color:#666">${k}</td><td style="padding:6px 0">${escapeHtml(v).replace(/\n/g, '<br>')}</td></tr>`)
-      .join('')}</table>${adminUrl ? `<p style="font-family:sans-serif"><a href="${adminUrl}">Відкрити заявки в адмінці</a></p>` : ''}`;
+      .join('')}</table>`;
 
     notifications.push(
       fetchImpl('https://api.resend.com/emails', {
@@ -237,8 +186,8 @@ export async function handleLead(request: Request, env: LeadEnv, fetchImpl: Fetc
 
   const delivered = (await Promise.allSettled(notifications)).some((r) => r.status === 'fulfilled' && r.value);
 
-  if (!saved && !delivered) {
-    console.error('lead lost: no channel accepted it', { configured: { db: hasDb, notifications: notifications.length } });
+  if (!delivered) {
+    console.error('lead lost: no channel accepted it', { configuredChannels: notifications.length });
     return json(502, { ok: false, error: 'Не вдалося надіслати заявку. Зателефонуйте нам, будь ласка.' });
   }
   return json(200, { ok: true });

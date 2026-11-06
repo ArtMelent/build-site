@@ -76,13 +76,14 @@ export class LeadFormComponent {
       phone: this.phone().trim(),
       message: this.message().trim(),
       serviceSlug: this.service() || null,
+      serviceTitle: this.selectedTitle(),
       sourcePage: this.router.url,
       website: this.website(),
       startedAt: this.startedAt,
     });
 
     if (result.ok) {
-      this.demo.set(!!result.demo);
+      this.demo.set(!!result.preview);
       this.status.set('done');
       this.sent.emit();
     } else {

@@ -37,7 +37,7 @@ export class ServicePage {
     effect(() => {
       const s = this.service();
       if (!s) {
-        if (this.data.loaded()) this.seo.set({ title: 'Сторінку не знайдено — GeniusDev', path: `/services/${this.slug()}`, noindex: true });
+        this.seo.set({ title: 'Сторінку не знайдено — GeniusDev', path: `/services/${this.slug()}`, noindex: true });
         return;
       }
       const path = `/services/${s.slug}`;

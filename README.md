@@ -1,10 +1,10 @@
 # GeniusDev — сайт бурильної компанії
 
-Сайт компанії з горизонтального направленого буріння: каталог послуг, форма заявки, адмін-панель.
+Сайт компанії з горизонтального направленого буріння: каталог послуг і форма заявки.
 
-- **Angular 22** (standalone, signals, zoneless), сторінки пререндеряться в HTML під час збірки
-- **Supabase** — база даних (послуги, заявки), вхід в адмінку, сховище фото
-- **Vercel** — хостинг і функція прийому заявок `/api/lead` (Telegram + email)
+- **Angular 22** (standalone, signals, zoneless); усі сторінки пререндеряться в HTML під час збірки
+- **Vercel** — хостинг і функція `/api/lead`, яка пересилає заявки в Telegram і на пошту (Resend)
+- Без бази даних: контент послуг лежить у `src/app/core/data/services.json`
 
 ## Швидкий старт
 
@@ -12,10 +12,8 @@
 
 ```bash
 npm ci
-npm start          # http://localhost:4200  (без .env — демо-режим)
+npm start          # http://localhost:4200
 ```
-
-Адмінка: `http://localhost:4200/admin` (у демо-режимі пускає з будь-якою поштою).
 
 ## Команди
 
@@ -23,23 +21,20 @@ npm start          # http://localhost:4200  (без .env — демо-режим
 |---|---|
 | `npm start` | Локальний сервер розробки |
 | `npm run build` | Продакшн-збірка → `dist/mysite/browser` (+ `sitemap.xml`, `robots.txt`) |
-| `npm test` | Тести API заявок |
-| `npm run seed:sql` | Оновити `supabase/seed.sql` з `src/app/core/data/seed-services.json` |
+| `npm test` | Тести прийому заявок |
 
 ## Де що лежить
 
 ```
-api/                    Vercel Functions: lead.ts (заявки), keepalive.ts (щоденний пінг БД)
-server/lead.ts          Логіка заявок: валідація, антиспам, ліміти, Telegram, Resend
-supabase/               SQL-схема з правилами доступу (RLS) і початкові дані
-src/app/core/           Конфіг, моделі, дані, SEO, Markdown, іконки
-src/app/core/site.ts    Телефони, пошта, назва — змінювати тут
-src/app/site/           Публічні сторінки: головна, послуга, контакти, форма заявки
-src/app/admin/          Адмін-панель: вхід, заявки, послуги, редактор
-public/                 Шрифт Oswald, favicon
-src/assets/             Картинки й відео (WebP / H.264)
+api/lead.ts                     Vercel Function: POST /api/lead
+server/lead.ts                  Логіка заявок: валідація, антиспам, ліміти, Telegram, Resend
+src/app/core/data/services.json Послуги: тексти (Markdown), ціни, фото, порядок
+src/app/core/site.ts            Телефони, пошта, назва компанії
+src/app/site/                   Сторінки: головна, послуга, контакти, форма заявки
+public/                         Шрифт Oswald, favicon
+src/assets/                     Картинки й відео (WebP / H.264)
 ```
 
-## Деплой
+## Деплой і редагування контенту
 
 Покрокова інструкція українською — **[DEPLOY.md](DEPLOY.md)**.

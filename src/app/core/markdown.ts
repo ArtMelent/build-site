@@ -1,9 +1,9 @@
 import { Marked } from 'marked';
 
 /**
- * Markdown for service descriptions. Raw HTML in the source is shown as text,
- * and only http(s), tel:, mailto: and relative links are kept, so nothing typed
- * in the admin panel can inject scripts. Angular's [innerHTML] sanitizer adds a second layer.
+ * Markdown for service descriptions (services.json → "body"). Raw HTML is shown as text
+ * and only http(s), tel:, mailto: and relative links are kept; Angular's [innerHTML]
+ * sanitizer adds a second layer.
  */
 const escape = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const SAFE_URL = /^(https?:|tel:|mailto:|\/|#|[a-z0-9-]+(\/|$))/i;

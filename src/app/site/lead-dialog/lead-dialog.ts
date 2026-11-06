@@ -27,7 +27,8 @@ import { SITE } from '../../core/site';
     dialog {
       width: min(560px, calc(100vw - 24px)); max-height: calc(100dvh - 24px);
       padding: 0; border: 0; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
-      color: var(--text); overflow: auto;
+      /* Explicit colours: a <dialog> otherwise takes the system theme's Canvas colour (dark in dark mode). */
+      background: #fff; color: var(--text); color-scheme: light; overflow: auto;
     }
     dialog[open] { animation: pop 0.35s var(--ease); }
     dialog::backdrop { background: rgba(26, 24, 24, 0.55); backdrop-filter: blur(3px); }

@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import type { Lead, LeadRequest } from './models';
-import { DEMO_MODE } from './env';
-import { demoStore } from './data/demo-store';
+import type { LeadRequest } from './models';
 
 export type LeadResult =
-  | { ok: true; demo?: boolean }
+  | { ok: true; preview?: boolean }
   | { ok: false; message: string; fieldErrors?: Record<string, string> };
 
+/** Sends the request form to /api/lead (a Vercel Function that forwards it to Telegram and email). */
 @Injectable({ providedIn: 'root' })
 export class LeadService {
   async submit(payload: LeadRequest): Promise<LeadResult> {
@@ -18,13 +17,11 @@ export class LeadService {
         body: JSON.stringify(payload),
       });
     } catch {
-      return DEMO_MODE ? this.saveDemo(payload) : { ok: false, message: 'Немає зʼєднання. Перевірте інтернет або зателефонуйте нам.' };
+      return { ok: false, message: 'Немає зʼєднання. Перевірте інтернет або зателефонуйте нам.' };
     }
 
-    // No API on this host (local dev or static preview): keep the lead in demo storage.
-    if (res.status === 404 || res.status === 405) {
-      return DEMO_MODE ? this.saveDemo(payload) : { ok: false, message: 'Сервіс заявок недоступний. Зателефонуйте нам, будь ласка.' };
-    }
+    // No API on this host (local `npm start` or a static preview): nothing to send to.
+    if (res.status === 404 || res.status === 405) return { ok: true, preview: true };
 
     let body: { ok?: boolean; error?: string; errors?: Record<string, string> } = {};
     try {
@@ -38,23 +35,5 @@ export class LeadService {
       message: body.error ?? 'Не вдалося надіслати заявку. Спробуйте ще раз або зателефонуйте нам.',
       fieldErrors: body.errors,
     };
-  }
-
-  private saveDemo(p: LeadRequest): LeadResult {
-    const service = p.serviceSlug ? demoStore.services().find((s) => s.slug === p.serviceSlug) : undefined;
-    const lead: Lead = {
-      id: crypto.randomUUID(),
-      name: p.name,
-      phone: p.phone,
-      message: p.message,
-      service_id: service?.id ?? null,
-      service_title: service?.title ?? null,
-      source_page: p.sourcePage,
-      status: 'new',
-      admin_note: '',
-      created_at: new Date().toISOString(),
-    };
-    demoStore.saveLeads([lead, ...demoStore.leads()]);
-    return { ok: true, demo: true };
   }
 }

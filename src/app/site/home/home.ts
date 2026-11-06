@@ -4,13 +4,14 @@ import { LeadDialogService } from '../../core/lead-dialog.service';
 import { SeoService } from '../../core/seo.service';
 import { IconComponent, type IconName } from '../../core/icon';
 import { RevealDirective } from '../../core/reveal.directive';
+import { InViewDirective } from '../../core/in-view.directive';
 import { SITE } from '../../core/site';
 import { ServiceCardComponent } from '../service-card/service-card';
 import { LeadFormComponent } from '../lead-form/lead-form';
 
 @Component({
   selector: 'app-home',
-  imports: [IconComponent, RevealDirective, ServiceCardComponent, LeadFormComponent],
+  imports: [IconComponent, RevealDirective, InViewDirective, ServiceCardComponent, LeadFormComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.html',
   styleUrl: './home.scss',

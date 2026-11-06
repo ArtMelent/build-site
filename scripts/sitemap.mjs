@@ -9,10 +9,10 @@ if (!existsSync(out)) process.exit(0);
 
 const pages = [];
 const walk = (dir, url) => {
-  if (existsSync(join(dir, 'index.html')) && !url.startsWith('/admin')) pages.push(url || '/');
+  if (existsSync(join(dir, 'index.html'))) pages.push(url || '/');
   for (const name of readdirSync(dir)) {
     const p = join(dir, name);
-    if (statSync(p).isDirectory() && !['assets', 'media', 'font', 'admin'].includes(name)) walk(p, `${url}/${name}`);
+    if (statSync(p).isDirectory() && !['assets', 'media', 'font'].includes(name)) walk(p, `${url}/${name}`);
   }
 };
 walk(out, '');
@@ -28,6 +28,6 @@ ${pages.map((p) => `  <url><loc>${site}${p === '/' ? '/' : p}</loc><lastmod>${to
 }
 writeFileSync(
   join(out, 'robots.txt'),
-  `User-agent: *\nAllow: /\nDisallow: /admin\n${site ? `\nSitemap: ${site}/sitemap.xml\n` : ''}`,
+  `User-agent: *\nAllow: /\n${site ? `\nSitemap: ${site}/sitemap.xml\n` : ''}`,
 );
 console.log(`sitemap: ${pages.length} pages${site ? '' : ' (SITE_URL not set — sitemap.xml skipped)'}`);

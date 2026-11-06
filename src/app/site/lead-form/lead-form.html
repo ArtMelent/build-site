@@ -4,7 +4,7 @@
     <p class="success__title">Дякуємо, заявку отримано!</p>
     <p>Ми зателефонуємо вам найближчим часом. Якщо питання термінове — дзвоніть: <a [href]="site.phones[0].href">{{ site.phones[0].display }}</a></p>
     @if (demo()) {
-      <p class="demo-note">Демо-режим: заявку збережено в адмінці цього браузера, нікуди не надіслано.</p>
+      <p class="demo-note">Це прев'ю без сервера: заявку не надіслано. На опублікованому сайті вона прийде в Telegram і на пошту.</p>
     }
     <button type="button" class="btn btn--ghost btn--sm" (click)="reset()">Надіслати ще одну</button>
   </div>
