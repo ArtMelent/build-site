@@ -1,218 +1,221 @@
 <div class="banner-wrapper">
-    <div class="banner">
-        <h1 class="banner-title h1">горизонтальне направлене <span class="dynamic">буріння</span></h1>
-        <p class="banner-description">
-          Наша компанія вже понад 7 років надає послуги в галузі безтраншейного прокладання труб і кабелю, 
-          для об'єктів житлового та промислового призначення. 
-          У своїй роботі ми використовуємо інноваційні технології та сучасне обладнання, дотримуючись усіх норм технічної безпеки,
-           і виконуючи замовлення точно в строк.
-        </p>
+  <div class="banner">
+    <h1 class="banner-title h1">горизонтальне направлене <span class="dynamic">буріння</span></h1>
+    <p class="banner-description">
+      Наша компанія вже понад 7 років надає послуги в галузі безтраншейного прокладання труб і кабелю,
+      для об'єктів житлового та промислового призначення.
+      У своїй роботі ми використовуємо інноваційні технології та сучасне обладнання, дотримуючись усіх норм технічної безпеки,
+      і виконуючи замовлення точно в строк.
+    </p>
 
-        <div class="button">
-            <a [routerLink]="['/contacts']" class="button-order">Замовити</a>
-        </div>
+    <div class="button">
+      <a [routerLink]="['/contacts']" class="button-order">Замовити</a>
     </div>
-    <div class="banner-image">
-        <img src="assets/banner.png" />
-    </div>
+  </div>
+  <div class="banner-image">
+    <img src="assets/banner.png" />
+  </div>
 </div>
 
 <div class="our-serivces container" id="services">
-    <div class="headliner" >
-        <span class="subtitle">виконуємо швидко</span>
-        <p class="headline h1">
-            Наші Послуги
-        </p>
-    </div>
-    <div *ngFor="let card of cardService; let i = index" class="card-service">
-        <a [routerLink]="['/services', card.slug]" [ngClass]="{ 'active': currentIndex === i }" (click)="setActiveCard(i)">
-          <span class="service-number">{{ formatCardNumber(i + 1) }}</span>
-          <p class="card-headline">{{ card.headline }}</p>
-      
-          <div class="card-info">
-            <div class="card-image">
-              <img [src]="card.imageSrc" />
-              <div class="icon">
-                <img [src]="card.iconSrc" />
-              </div>
+  <div class="headliner" >
+    <span class="subtitle">виконуємо швидко</span>
+    <p class="headline h1">
+      Наші Послуги
+    </p>
+  </div>
+  @for (card of cardService; track card; let i = $index) {
+    <div class="card-service">
+      <a [routerLink]="['/services', card.slug]" [ngClass]="{ 'active': currentIndex === i }" (click)="setActiveCard(i)">
+        <span class="service-number">{{ formatCardNumber(i + 1) }}</span>
+        <p class="card-headline">{{ card.headline }}</p>
+        <div class="card-info">
+          <div class="card-image">
+            <img [src]="card.imageSrc" />
+            <div class="icon">
+              <img [src]="card.iconSrc" />
             </div>
-            <!-- <div class="card-description">{{ card.description }}</div> -->
-            <p class="card-price">від <span class="price-number">{{ card.price }}</span> грн</p>
           </div>
-        </a>
-      </div>
-      
+          <!-- <div class="card-description">{{ card.description }}</div> -->
+          <p class="card-price">від <span class="price-number">{{ card.price }}</span> грн</p>
+        </div>
+      </a>
+    </div>
+  }
+
 </div>
 
 <div class="cooperation container">
-    <div class="headliner">
-        <span class="subtitle">виконуємо швидко</span>
-        <p class="headline h1">Як ми працюємо</p>
-    </div>
-    <div *ngFor="let card of cardCooperation; let i = index" [class.active]="currentIndex === i" class="cooperation-card-wrapper">
+  <div class="headliner">
+    <span class="subtitle">виконуємо швидко</span>
+    <p class="headline h1">Як ми працюємо</p>
+  </div>
+  @for (card of cardCooperation; track card; let i = $index) {
+    <div [class.active]="currentIndex === i" class="cooperation-card-wrapper">
       <div class="cooperation-card">
         <p class="cooperation-headline">
-            <span class="cooperation-number">{{ i + 1 | number: '2.0' }}</span>
-            {{ card.title }}
+          <span class="cooperation-number">{{ i + 1 | number: '2.0' }}</span>
+          {{ card.title }}
         </p>
         <div class="cooperation-description">{{ card.description }}</div>
       </div>
       <div class="tilted-border"></div>
     </div>
+  }
 </div>
 
 <div class="our-project container">
-    <div class="headliner">
-      <span class="subtitle">ділимось результатами</span>
-      <p class="headline h1">Реалізовані проекти</p>
-    </div>
+  <div class="headliner">
+    <span class="subtitle">ділимось результатами</span>
+    <p class="headline h1">Реалізовані проекти</p>
+  </div>
 
-    <div class="project-card">
-      <video width="400" controls >
-        <source src="assets/video-portfolio-1.mp4" type="video/mp4">
-        <source src="assets/video-portfolio-1.ogg" type="video/ogg">
-        Your browser does not support HTML video.
-      </video>
-        <!-- <div class="project-info">
-            <p class="project-title">Вертикальне буріння для нафтової компанії</p>
-            <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div> -->
-    </div>
-    <div class="project-card">
-      <video controls width="400" id="video">
-        <source src="assets/video-portfolio-2.mp4" type="video/mp4">
-        <source src="assets/video-portfolio-2.ogg" type="video/ogg">
-        Your browser does not support HTML video.
-      </video>
-        <!-- <div class="project-info">
-            <p class="project-title">Вертикальне буріння для нафтової компанії</p>
-            <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div> -->
-    </div>
-    <div class="project-card">
-      <video width="400" controls>
-        <source src="assets/video-portfolio-3.mp4" type="video/mp4">
-        <source src="assets/video-portfolio-3.ogg" type="video/ogg">
-        Your browser does not support HTML video.
-      </video>
-        <!-- <div class="project-info">
-            <p class="project-title">Вертикальне буріння для нафтової компанії</p>
-            <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div> -->
-    </div>
-    <div class="project-card-big project-card">
-      <img class="project-image" src="assets/photo-portfolio-2.jpg">
-        <!-- <img class="project-image" src="assets/project-04.png">
-        <div class="project-info">
-            <p class="project-title">Вертикальне буріння для нафтової компанії</p>
-            <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div> -->
-        
-    </div>
-    <div class="project-card">
-        <img class="project-image" src="assets/photo-portfolio-1.jpg">
-        <!-- <div class="project-info">
-            <p class="project-title">Вертикальне буріння для нафтової компанії</p>
-            <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div> -->
-    </div>
+  <div class="project-card">
+    <video width="400" controls >
+      <source src="assets/video-portfolio-1.mp4" type="video/mp4">
+      <source src="assets/video-portfolio-1.ogg" type="video/ogg">
+      Your browser does not support HTML video.
+    </video>
+    <!-- <div class="project-info">
+    <p class="project-title">Вертикальне буріння для нафтової компанії</p>
+    <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </div> -->
+</div>
+<div class="project-card">
+  <video controls width="400" id="video">
+    <source src="assets/video-portfolio-2.mp4" type="video/mp4">
+    <source src="assets/video-portfolio-2.ogg" type="video/ogg">
+    Your browser does not support HTML video.
+  </video>
+  <!-- <div class="project-info">
+  <p class="project-title">Вертикальне буріння для нафтової компанії</p>
+  <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+</div> -->
+</div>
+<div class="project-card">
+  <video width="400" controls>
+    <source src="assets/video-portfolio-3.mp4" type="video/mp4">
+    <source src="assets/video-portfolio-3.ogg" type="video/ogg">
+    Your browser does not support HTML video.
+  </video>
+  <!-- <div class="project-info">
+  <p class="project-title">Вертикальне буріння для нафтової компанії</p>
+  <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+</div> -->
+</div>
+<div class="project-card-big project-card">
+  <img class="project-image" src="assets/photo-portfolio-2.jpg">
+  <!-- <img class="project-image" src="assets/project-04.png">
+  <div class="project-info">
+    <p class="project-title">Вертикальне буріння для нафтової компанії</p>
+    <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </div> -->
+
+</div>
+<div class="project-card">
+  <img class="project-image" src="assets/photo-portfolio-1.jpg">
+  <!-- <div class="project-info">
+  <p class="project-title">Вертикальне буріння для нафтової компанії</p>
+  <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+</div> -->
+</div>
 
 </div>
 
 <div class="call-to-action container">
-    <div class="call-to-action-info">
-        <p class="title h1">Реалізуєм любу вашу забаганку!</p>
-        <p class="description">Вже зараз ви можете зателефонувати або написати для виїзду спеціаліста, щоб розрахувати приблизну вартість послуг які вас зацікавили</div>
+  <div class="call-to-action-info">
+    <p class="title h1">Реалізуєм любу вашу забаганку!</p>
+    <p class="description">Вже зараз ви можете зателефонувати або написати для виїзду спеціаліста, щоб розрахувати приблизну вартість послуг які вас зацікавили</div>
     <a [routerLink]="['/contacts']" class="call-to-action-button">
-        
-        <p class="order">
-            <span>безкоштовна консультація</span><br>
-            <a class="button-order">Замовити</a>
-        </p>
-      </a>
-</div>
 
-<div class="about-us container">
+      <p class="order">
+        <span>безкоштовна консультація</span><br>
+        <a class="button-order">Замовити</a>
+      </p>
+    </a>
+  </div>
+
+  <div class="about-us container">
     <div class="about-us-info">
-         <div class="headliner">
-          <span class="subtitle">Швидко, якісно, доступно!</span>
-          <p class="headline h1">
-            Про нас
-          </p>
-      </div>
-        <p class="description">
-      
-          Наша компанія пропонує широкий спектр бестраншейних робіт, які допоможуть вам прокласти комунікації без зайвих витрат часу та коштів. Ми використовуємо лише бестраншейні технології, що значно дешевше, ніж традиційні методи з розкопками, та значно прискорює термін виконання робіт.
-
+      <div class="headliner">
+        <span class="subtitle">Швидко, якісно, доступно!</span>
+        <p class="headline h1">
+          Про нас
         </p>
-        <!-- <div class="wrapper-button"><a [routerLink]="['/about-us']" class="order">Дізнатись більше</a></div> -->
+      </div>
+      <p class="description">
+
+        Наша компанія пропонує широкий спектр бестраншейних робіт, які допоможуть вам прокласти комунікації без зайвих витрат часу та коштів. Ми використовуємо лише бестраншейні технології, що значно дешевше, ніж традиційні методи з розкопками, та значно прискорює термін виконання робіт.
+
+      </p>
+      <!-- <div class="wrapper-button"><a [routerLink]="['/about-us']" class="order">Дізнатись більше</a></div> -->
     </div>
     <div class="about-us-image">
-        <img src="assets/about-us.png" alt="About us">
+      <img src="assets/about-us.png" alt="About us">
     </div>
-</div>
+  </div>
 
-<!-- <div class="popular-question container">
-    <div class="headliner">
-        <span class="subtitle">у вас є питання?</span>
-        <p class="headline h1">
-            Популярні питання
-        </p>
-    </div>
-    <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Питання яке часто задають або являється важливою частиною робочого питання
-            </mat-panel-title>
-           
-          </mat-expansion-panel-header>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
-        </mat-expansion-panel>
+  <!-- <div class="popular-question container">
+  <div class="headliner">
+    <span class="subtitle">у вас є питання?</span>
+    <p class="headline h1">
+      Популярні питання
+    </p>
+  </div>
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Питання яке часто задають або являється важливою частиною робочого питання
+        </mat-panel-title>
 
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Питання яке часто задають або являється важливою частиною робочого питання
-            </mat-panel-title>
-         
-          </mat-expansion-panel-header>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
-        </mat-expansion-panel>
+      </mat-expansion-panel-header>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
+    </mat-expansion-panel>
 
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Питання яке часто задають або являється важливою частиною робочого питання
-            </mat-panel-title>
-        
-          </mat-expansion-panel-header>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
-        </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Питання яке часто задають або являється важливою частиною робочого питання
+        </mat-panel-title>
 
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Питання яке часто задають або являється важливою частиною робочого питання
-            </mat-panel-title>
-         
-          </mat-expansion-panel-header>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
-        </mat-expansion-panel>
+      </mat-expansion-panel-header>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
+    </mat-expansion-panel>
 
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Питання яке часто задають або являється важливою частиною робочого питання
-            </mat-panel-title>
-    
-          </mat-expansion-panel-header>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
-        </mat-expansion-panel>
-      </mat-accordion>
-      </div> -->
+    <mat-expansion-panel (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Питання яке часто задають або являється важливою частиною робочого питання
+        </mat-panel-title>
+
+      </mat-expansion-panel-header>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Питання яке часто задають або являється важливою частиною робочого питання
+        </mat-panel-title>
+
+      </mat-expansion-panel-header>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Питання яке часто задають або являється важливою частиною робочого питання
+        </mat-panel-title>
+
+      </mat-expansion-panel-header>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae, malesuada a orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam urna elit, posuere eget pretium vitae. Lorem ipsum dolor sit amet, consectetur elit.</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div> -->
