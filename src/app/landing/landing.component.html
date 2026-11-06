@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="banner-image">
-    <img src="assets/banner.png" />
+    <img src="assets/banner.png" alt="Бурова установка для горизонтального направленого буріння" fetchpriority="high" />
   </div>
 </div>
 
@@ -31,9 +31,9 @@
         <p class="card-headline">{{ card.headline }}</p>
         <div class="card-info">
           <div class="card-image">
-            <img [src]="card.imageSrc" />
+            <img [src]="card.imageSrc" [alt]="card.headline" loading="lazy" />
             <div class="icon">
-              <img [src]="card.iconSrc" />
+              <img [src]="card.iconSrc" alt="" />
             </div>
           </div>
           <!-- <div class="card-description">{{ card.description }}</div> -->
@@ -104,7 +104,7 @@
 </div> -->
 </div>
 <div class="project-card-big project-card">
-  <img class="project-image" src="assets/photo-portfolio-2.jpg">
+  <img class="project-image" src="assets/photo-portfolio-2.jpg" alt="Бригада виконує безтраншейне прокладання труб" loading="lazy">
   <!-- <img class="project-image" src="assets/project-04.png">
   <div class="project-info">
     <p class="project-title">Вертикальне буріння для нафтової компанії</p>
@@ -113,7 +113,7 @@
 
 </div>
 <div class="project-card">
-  <img class="project-image" src="assets/photo-portfolio-1.jpg">
+  <img class="project-image" src="assets/photo-portfolio-1.jpg" alt="Буріння на об'єкті" loading="lazy">
   <!-- <div class="project-info">
   <p class="project-title">Вертикальне буріння для нафтової компанії</p>
   <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -124,13 +124,14 @@
 
 <div class="call-to-action container">
   <div class="call-to-action-info">
-    <p class="title h1">Реалізуєм любу вашу забаганку!</p>
-    <p class="description">Вже зараз ви можете зателефонувати або написати для виїзду спеціаліста, щоб розрахувати приблизну вартість послуг які вас зацікавили</div>
+    <p class="title h1">Реалізуємо будь-яку вашу забаганку!</p>
+    <p class="description">Вже зараз ви можете зателефонувати або написати для виїзду спеціаліста, щоб розрахувати приблизну вартість послуг, які вас зацікавили</p>
+  </div>
     <a [routerLink]="['/contacts']" class="call-to-action-button">
 
       <p class="order">
         <span>безкоштовна консультація</span><br>
-        <a class="button-order">Замовити</a>
+        <strong class="button-order">Замовити</strong>
       </p>
     </a>
   </div>
@@ -145,13 +146,13 @@
       </div>
       <p class="description">
 
-        Наша компанія пропонує широкий спектр бестраншейних робіт, які допоможуть вам прокласти комунікації без зайвих витрат часу та коштів. Ми використовуємо лише бестраншейні технології, що значно дешевше, ніж традиційні методи з розкопками, та значно прискорює термін виконання робіт.
+        Наша компанія пропонує широкий спектр безтраншейних робіт, які допоможуть вам прокласти комунікації без зайвих витрат часу та коштів. Ми використовуємо лише безтраншейні технології, що значно дешевше, ніж традиційні методи з розкопками, та значно прискорює термін виконання робіт.
 
       </p>
       <!-- <div class="wrapper-button"><a [routerLink]="['/about-us']" class="order">Дізнатись більше</a></div> -->
     </div>
     <div class="about-us-image">
-      <img src="assets/about-us.png" alt="About us">
+      <img src="assets/about-us.png" alt="Про компанію" loading="lazy">
     </div>
   </div>
 

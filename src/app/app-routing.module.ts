@@ -13,16 +13,16 @@ import { TrenchDiggerComponent } from './our-services/trench-digger/trench-digge
 import { FindingNetworksComponent } from './our-services/finding-networks/finding-networks.component';
 
 const routes: Routes = [
-  { path: '', component: LandingComponent },
+  { path: '', component: LandingComponent, title: 'Горизонтальне направлене буріння (ГНБ) — GeniusDev' },
   // { path: 'about-gnb', component: AboutUsComponent},
-  { path: 'contacts', component: ContactsComponent},
+  { path: 'contacts', component: ContactsComponent, title: 'Контакти — GeniusDev'},
 
-  { path: 'services/prokol-pid-dorohoiu', component: UnderRoadComponent},
-  { path: 'services/prokol-pid-zaliznytseiu', component: UnderRailwayComponent},
-  { path: 'services/beztransheynoyu-rokladannya-vodoprovodu', component: LayingWaterComponent},
-  { path: 'services/beztransheyne-prokladannya-trub-metodom-hnb', component: LayingGnbComponent},
-  { path: 'services/beztransheyne-prokladannya-kanalizatsiyi', component: LayingSewerageComponent},
-  { path: 'services/spayka-trub', component: PipeAdhesionComponent},
+  { path: 'services/prokol-pid-dorohoiu', component: UnderRoadComponent, title: 'Прокол під дорогою — GeniusDev'},
+  { path: 'services/prokol-pid-zaliznytseiu', component: UnderRailwayComponent, title: 'Прокол під залізницею — GeniusDev'},
+  { path: 'services/beztransheynoyu-rokladannya-vodoprovodu', component: LayingWaterComponent, title: 'Безтраншейне прокладання водопроводу — GeniusDev'},
+  { path: 'services/beztransheyne-prokladannya-trub-metodom-hnb', component: LayingGnbComponent, title: 'Безтраншейне прокладання труб методом ГНБ — GeniusDev'},
+  { path: 'services/beztransheyne-prokladannya-kanalizatsiyi', component: LayingSewerageComponent, title: 'Безтраншейне прокладання каналізації — GeniusDev'},
+  { path: 'services/spayka-trub', component: PipeAdhesionComponent, title: 'Спайка труб — GeniusDev'},
   // { path: 'services/posluhy-traysheynoho-kopacha', component: TrenchDiggerComponent},
   // { path: 'services/znakhodzhennya-transheynykh-merezh', component: FindingNetworksComponent},
 

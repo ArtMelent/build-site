@@ -1,5 +1,5 @@
-import { Component, ElementRef, HostListener, OnInit, Renderer2, ChangeDetectionStrategy } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component, ElementRef, HostListener, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -8,100 +8,56 @@ import { NavigationEnd, Router } from '@angular/router';
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class HeaderComponent implements OnInit {
-  isNavbarVisible: boolean = true;
-  lastScrollPosition: number = 0;
-  isScrollingStarted: boolean = false;
-  isOpened: boolean = false;
-  headerHeight: number = 0;
+export class HeaderComponent {
+  private readonly router = inject(Router);
+  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-  constructor(private router: Router, private renderer: Renderer2, private elementRef: ElementRef) {
-    this.setActiveRoute(router.url);
+  isNavbarVisible = true;
+  isOpened = false;
+  headerHeight = 0;
+  private lastScrollPosition = 0;
 
-    // Subscribe to route changes to update the active class
-    router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.setActiveRoute(event.url);
-      }
-    });
+  /** Scrolls to a section on the landing page, navigating there first if needed. */
+  scrollToSection(sectionId: string): void {
+    const scroll = () => document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
 
-    
-  }
-  ngOnInit(): void {
-
-  }
-
-  scrollToSection(sectionId: string) {
-    const onLandingPage = this.router.url === '/';
-  
-    // If already on LandingPageComponent and the section is available on the page
-    if (onLandingPage) {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        this.renderer.setProperty(window, 'scrollBehavior', 'smooth');
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+    if (this.router.url === '/') {
+      scroll();
     } else {
-      // Navigate to the LandingPageComponent and scroll to the section after navigation
-      this.router.navigate(['']).then(() => {
-        setTimeout(() => { // Add a small delay to ensure the view has updated after navigation
-          const element = document.getElementById(sectionId);
-          if (element) {
-            this.renderer.setProperty(window, 'scrollBehavior', 'smooth');
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 10);
-      });
+      // Small delay so the landing page has rendered before scrolling.
+      this.router.navigate(['']).then(() => setTimeout(scroll, 10));
     }
   }
-  
 
-  setActiveRoute(url: string): void {
-    const navButtons = document.querySelectorAll('.nav-button');
-    navButtons.forEach((button) => {
-      if (button.getAttribute('routerLink') === url) {
-        this.renderer.addClass(button, 'active');
-      } else {
-        this.renderer.removeClass(button, 'active');
-      }
-    });
-  }
-
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll(event: any): void {
-    const currentScrollPosition = window.pageYOffset;
-
-    // Check if scrolling has started
-    if (!this.isScrollingStarted) {
-      this.isScrollingStarted = true;
-    }
+  /** Hide the navbar while scrolling down, show it again on scroll up. */
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
+    const currentScrollPosition = window.scrollY;
 
     if (currentScrollPosition > this.lastScrollPosition && this.isNavbarVisible) {
-      // Hide the navbar on scroll down
       this.isNavbarVisible = false;
-      this.renderer.addClass(document.querySelector('.header'), 'sticky');
-    }
-
-    if (currentScrollPosition < this.lastScrollPosition && !this.isNavbarVisible) {
-      // Show the navbar on scroll up
+    } else if (currentScrollPosition < this.lastScrollPosition && !this.isNavbarVisible) {
       this.isNavbarVisible = true;
-      this.renderer.removeClass(document.querySelector('.header'), 'sticky');
     }
 
     this.lastScrollPosition = currentScrollPosition;
   }
 
-  toggleBurgerMenu() {
-    this.isOpened = !this.isOpened;
-    document.body.style.overflow = this.isOpened ? 'hidden' : '';
+  toggleBurgerMenu(): void {
+    this.setMenuOpen(!this.isOpened);
   }
-  
+
+  /** Close the mobile menu on any click outside the burger icon. */
   @HostListener('document:click', ['$event.target'])
-  onClick(target: any) {
-    const burgerMenu = document.querySelector('.material-icons');
-    if (this.isOpened && !burgerMenu?.contains(target)) {
-      this.isOpened = false;
-      document.body.style.overflow = '';
+  onDocumentClick(target: EventTarget | null): void {
+    const burgerIcon = this.elementRef.nativeElement.querySelector('.burger-menu');
+    if (this.isOpened && !burgerIcon?.contains(target as Node)) {
+      this.setMenuOpen(false);
     }
+  }
+
+  private setMenuOpen(open: boolean): void {
+    this.isOpened = open;
+    document.body.style.overflow = open ? 'hidden' : '';
   }
 }

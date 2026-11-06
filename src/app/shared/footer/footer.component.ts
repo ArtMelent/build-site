@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Renderer2, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Renderer2, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'app-footer',
@@ -8,6 +8,7 @@ import { Component, AfterViewInit, Renderer2, ChangeDetectionStrategy } from '@a
     standalone: false
 })
 export class FooterComponent {
+  readonly currentYear = new Date().getFullYear();
 
   constructor(private renderer: Renderer2) {}
 
